@@ -1,5 +1,7 @@
 ﻿namespace ConsoleTwiterTests
 {
+    using ConsoleTwitter;
+
     using FluentAssertions;
 
     using Xunit;
@@ -14,6 +16,16 @@
             var command = parser.Parse("user");
 
             command.Should().BeAssignableTo<ICommand>();
+        }
+
+        [Fact]
+        public void GivenAnInvalidUserInputWhenParseIsCalleThenItCreatesANullCommandRepresentigTheUserAction()
+        {
+            var parser = new InputParser();
+
+            var command = parser.Parse(string.Empty);
+
+            command.Should().BeAssignableTo<NullCommand>();
         }
     }
 }

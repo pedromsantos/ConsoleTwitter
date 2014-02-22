@@ -1,6 +1,6 @@
 ﻿namespace ConsoleTwitter
 {
-    public interface ICommand
+    public class NullCommand : ICommand
     {
     }
 }
