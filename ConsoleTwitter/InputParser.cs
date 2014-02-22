@@ -1,7 +1,5 @@
 ﻿namespace ConsoleTwitter
 {
-    using ConsoleTwiterTests;
-
     public class InputParser
     {
         public ICommand Parse(string userAction)
@@ -11,7 +9,7 @@
                 return new NullCommand();
             }
 
-            return new Command();
+            return new Command(userAction);
         }
     }
 }

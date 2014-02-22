@@ -9,7 +9,7 @@
     public class CommandParserTests
     {
         [Fact]
-        public void GivenAUserInputWhenParseIsCalleThenItCreatesACommandRepresentigTheUserAction()
+        public void GivenAUserInputWhenParseIsCalledThenItCreatesACommandRepresentigTheUserAction()
         {
             var parser = new InputParser();
 
@@ -19,13 +19,25 @@
         }
 
         [Fact]
-        public void GivenAnInvalidUserInputWhenParseIsCalleThenItCreatesANullCommandRepresentigTheUserAction()
+        public void GivenAnInvalidUserInputWhenParseIsCalledThenItCreatesANullCommandRepresentigTheUserAction()
         {
             var parser = new InputParser();
 
             var command = parser.Parse(string.Empty);
 
             command.Should().BeAssignableTo<NullCommand>();
+        }
+
+        [Fact]
+        public void GivenAUserInputWhenParseIsCalledThenItCreatesACommandAssigningTheUsernameToTheCommand()
+        {
+            const string UserName = "user";
+
+            var parser = new InputParser();
+
+            var command = parser.Parse(UserName);
+
+            command.User.Should().Be(UserName);
         }
     }
 }
