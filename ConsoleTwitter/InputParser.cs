@@ -18,7 +18,7 @@
                 return new PostCommand(tokenizedInput[0]);
             }
 
-            return new Command(tokenizedInput[0]);
+            return new ReadCommand(tokenizedInput[0]);
         }
     }
 }

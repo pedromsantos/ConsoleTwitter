@@ -41,7 +41,7 @@
         }
 
         [Fact]
-        public void GivenAUserPostInputWhenParseIsCalledThenItCreatesACommandForTheAction()
+        public void GivenAUserPostInputWhenParseIsCalledThenItCreatesAPostCommandForTheAction()
         {
             const string Input = "user -> message";
 
@@ -50,6 +50,18 @@
             var command = parser.Parse(Input);
 
             command.Should().BeAssignableTo<PostCommand>();
+        }
+
+        [Fact]
+        public void GivenAUserReadInputWhenParseIsCalledThenItCreatesAReadCommandForTheAction()
+        {
+            const string Input = "user";
+
+            var parser = new InputParser();
+
+            var command = parser.Parse(Input);
+
+            command.Should().BeAssignableTo<ReadCommand>();
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿namespace ConsoleTwitter
 {
-    public class Command : ICommand
+    public abstract class Command : ICommand
     {
-        public Command(string userName)
+        protected Command(string userName)
         {
-            User = userName;
+            this.User = userName;
         }
 
         public string User { get; private set; }
