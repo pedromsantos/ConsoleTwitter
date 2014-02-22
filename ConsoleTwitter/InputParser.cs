@@ -32,7 +32,12 @@
                     return new WallCommand(userName);
                 }
 
-                return new PostCommand(userName);
+                if (tokenizedInput.Count() > 2)
+                {
+                    var message = tokenizedInput[2];
+
+                    return new PostCommand(userName, message);
+                }
             }
 
             return new ReadCommand(userName);

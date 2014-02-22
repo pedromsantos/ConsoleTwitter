@@ -53,6 +53,18 @@
         }
 
         [Fact]
+        public void GivenAUserPostInputWhenParseIsCalledThenItCreatesAPostCommandAssigningTheMessageToTheCommand()
+        {
+            const string Input = "user -> message";
+
+            var parser = new InputParser();
+
+            var command = (PostCommand)parser.Parse(Input);
+
+            command.Message.Should().Be("message");
+        }
+
+        [Fact]
         public void GivenAUserReadInputWhenParseIsCalledThenItCreatesAReadCommandForTheAction()
         {
             const string Input = "user";
