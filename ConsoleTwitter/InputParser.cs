@@ -5,6 +5,7 @@
     public class InputParser
     {
         private const string FollowToken = "follows";
+        private const string WallToken = "wall";
 
         public ICommand Parse(string userAction)
         {
@@ -15,17 +16,26 @@
 
             var tokenizedInput = userAction.Split(' ');
 
+            var userName = tokenizedInput[0];
+
             if (tokenizedInput.Count() > 1)
             {
-                if (tokenizedInput[1].ToLower() == FollowToken)
+                var action = tokenizedInput[1];
+
+                if (action.ToLower() == FollowToken)
                 {
-                    return new FollowCommand(tokenizedInput[0]);    
+                    return new FollowCommand(userName);    
                 }
 
-                return new PostCommand(tokenizedInput[0]);
+                if (action.ToLower() == WallToken)
+                {
+                    return new WallCommand(userName);
+                }
+
+                return new PostCommand(userName);
             }
 
-            return new ReadCommand(tokenizedInput[0]);
+            return new ReadCommand(userName);
         }
     }
 }

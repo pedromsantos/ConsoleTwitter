@@ -75,5 +75,17 @@
 
             command.Should().BeAssignableTo<FollowCommand>();
         }
+
+        [Fact]
+        public void GivenAUserWallInputWhenParseIsCalledThenItCreatesAWallCommandForTheAction()
+        {
+            const string Input = "user wall";
+
+            var parser = new InputParser();
+
+            var command = parser.Parse(Input);
+
+            command.Should().BeAssignableTo<WallCommand>();
+        }
     }
 }
