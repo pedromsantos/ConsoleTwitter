@@ -39,5 +39,17 @@
 
             command.User.Should().Be(UserName);
         }
+
+        [Fact]
+        public void GivenAUserPostInputWhenParseIsCalledThenItCreatesACommandForTheAction()
+        {
+            const string Input = "user -> message";
+
+            var parser = new InputParser();
+
+            var command = parser.Parse(Input);
+
+            command.Should().BeAssignableTo<PostCommand>();
+        }
     }
 }

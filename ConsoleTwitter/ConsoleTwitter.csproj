@@ -36,8 +36,12 @@
     <Compile Include="ICommand.cs" />
     <Compile Include="InputParser.cs" />
     <Compile Include="NullCommand.cs" />
+    <Compile Include="PostCommand.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
