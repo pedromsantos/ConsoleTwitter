@@ -63,5 +63,17 @@
 
             command.Should().BeAssignableTo<ReadCommand>();
         }
+
+        [Fact]
+        public void GivenAUserFollowInputWhenParseIsCalledThenItCreatesAFollowCommandForTheAction()
+        {
+            const string Input = "user follows user";
+
+            var parser = new InputParser();
+
+            var command = parser.Parse(Input);
+
+            command.Should().BeAssignableTo<FollowCommand>();
+        }
     }
 }

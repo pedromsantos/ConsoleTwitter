@@ -4,6 +4,8 @@
 
     public class InputParser
     {
+        private const string FollowToken = "follows";
+
         public ICommand Parse(string userAction)
         {
             if (string.IsNullOrEmpty(userAction))
@@ -15,6 +17,11 @@
 
             if (tokenizedInput.Count() > 1)
             {
+                if (tokenizedInput[1].ToLower() == FollowToken)
+                {
+                    return new FollowCommand(tokenizedInput[0]);    
+                }
+
                 return new PostCommand(tokenizedInput[0]);
             }
 
