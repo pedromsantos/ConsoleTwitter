@@ -89,6 +89,18 @@
         }
 
         [Fact]
+        public void GivenAUserFollowInputWhenParseIsCalledThenItCreatesFollowCommandAssigningTheserToFollowToTheCommand()
+        {
+            const string Input = "Alice follows Bob";
+
+            var parser = new InputParser();
+
+            var command = (FollowCommand)parser.Parse(Input);
+
+            command.UserToFollow.Should().Be("Bob");
+        }
+
+        [Fact]
         public void GivenAUserWallInputWhenParseIsCalledThenItCreatesAWallCommandForTheAction()
         {
             const string Input = "user wall";

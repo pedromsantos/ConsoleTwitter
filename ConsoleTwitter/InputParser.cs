@@ -6,6 +6,7 @@
     {
         private const string FollowToken = "follows";
         private const string WallToken = "wall";
+        private const string PostToken = "->";
 
         public ICommand Parse(string userAction)
         {
@@ -20,19 +21,21 @@
 
             if (tokenizedInput.Count() > 1)
             {
-                var action = tokenizedInput[1];
+                var action = tokenizedInput[1].ToLower();
 
-                if (action.ToLower() == FollowToken)
+                if (action == FollowToken)
                 {
-                    return new FollowCommand(userName);    
+                    var userToFollow = tokenizedInput[2];
+
+                    return new FollowCommand(userName, userToFollow);    
                 }
 
-                if (action.ToLower() == WallToken)
+                if (action == WallToken)
                 {
                     return new WallCommand(userName);
                 }
 
-                if (tokenizedInput.Count() > 2)
+                if (action == PostToken)
                 {
                     var message = tokenizedInput[2];
 
