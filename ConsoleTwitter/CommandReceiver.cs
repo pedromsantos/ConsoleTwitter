@@ -19,7 +19,7 @@ namespace ConsoleTwitter
 
         public void Post(string user, string message)
         {
-            throw new NotImplementedException();
+            this.repository.FindByIdentifier(user);
         }
 
         public void Read(string user)
