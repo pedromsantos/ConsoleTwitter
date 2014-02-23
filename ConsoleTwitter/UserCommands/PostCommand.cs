@@ -12,7 +12,7 @@
 
         public override void Execute ()
         {
-            throw new System.NotImplementedException ();
+            this.receiver.Post(User, Message);
         }
     }
 }
