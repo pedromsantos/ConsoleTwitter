@@ -11,7 +11,9 @@
         [Test]
         public void GivenAUsernameWhenCreateCommandIsCalledThenItCreatesACommandRepresentigTheUserAction()
         {
-            var factory = new CommandFactory();
+            var receiverStub = Substitute.For<ICommandReceiver>();
+
+            var factory = new CommandFactory(receiverStub);
         
             var command = factory.CreateCommand("user", null, null);
         
@@ -21,7 +23,9 @@
         [Test]
         public void GivenInvalidArgumentsWhenCreateCommandIsCalledThenItCreatesANullCommandRepresentigTheUserAction()
         {
-            var factory = new CommandFactory();
+            var receiverStub = Substitute.For<ICommandReceiver>();
+
+            var factory = new CommandFactory(receiverStub);
         
             var command = factory.CreateCommand(string.Empty, null, null);
         
@@ -33,7 +37,9 @@
         {
             const string UserName = "user";
         
-            var factory = new CommandFactory();
+            var receiverStub = Substitute.For<ICommandReceiver>();
+
+            var factory = new CommandFactory(receiverStub);
         
             var command = factory.CreateCommand(UserName, null, null);
         
@@ -43,7 +49,9 @@
         [Test]
         public void GivenAUsernameAndAMessageWhenCreateCommandIsCalledThenItCreatesAPostCommandForTheAction()
         {
-            var factory = new CommandFactory();
+            var receiverStub = Substitute.For<ICommandReceiver>();
+
+            var factory = new CommandFactory(receiverStub);
         
             var command = factory.CreateCommand("user", "->", "message");
         
@@ -53,7 +61,9 @@
         [Test]
         public void GivenAUsernameAPostActionAndAMessageWhenCreateCommandIsCalledThenItCreatesAPostCommandAssigningTheMessageToTheCommand()
         {
-            var factory = new CommandFactory();
+            var receiverStub = Substitute.For<ICommandReceiver>();
+
+            var factory = new CommandFactory(receiverStub);
         
             var command = (PostCommand)factory.CreateCommand("user", "->" , "message");
         
@@ -65,7 +75,9 @@
         {
             const string Input = "user";
         
-            var factory = new CommandFactory();
+            var receiverStub = Substitute.For<ICommandReceiver>();
+
+            var factory = new CommandFactory(receiverStub);
         
             var command = factory.CreateCommand("user", null, null);
         
@@ -75,7 +87,9 @@
         [Test]
         public void GivenAUsernameAFollowActionAndAUserToFollowWhenCreateCommandIsCalledThenItCreatesAFollowCommandForTheAction()
         {
-            var factory = new CommandFactory();
+            var receiverStub = Substitute.For<ICommandReceiver>();
+
+            var factory = new CommandFactory(receiverStub);
         
             var command = (FollowCommand)factory.CreateCommand("user", "follows", "user");
         
@@ -85,7 +99,9 @@
         [Test]
         public void GivenAUsernameAFollowActionAndAUserToFollowWhenCreateCommandIsCalledThenItCreatesFollowCommandAssigningTheserToFollowToTheCommand()
         {
-            var factory = new CommandFactory();
+            var receiverStub = Substitute.For<ICommandReceiver>();
+
+            var factory = new CommandFactory(receiverStub);
         
             var command = (FollowCommand)factory.CreateCommand("Alice", "follows", "Bob");
         
@@ -95,7 +111,9 @@
         [Test]
         public void GivenAUsernameAndAWallActionWhenCreateCommandIsCalledThenItCreatesAWallCommandForTheAction()
         {
-            var factory = new CommandFactory();
+            var receiverStub = Substitute.For<ICommandReceiver>();
+
+            var factory = new CommandFactory(receiverStub);
         
             var command = (WallCommand)factory.CreateCommand("User", "wall", null);
         

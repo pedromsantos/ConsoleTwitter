@@ -8,6 +8,13 @@ namespace ConsoleTwitter
         private const string WallToken = "wall";
         private const string PostToken = "->";
 
+        private ICommandReceiver receiver;
+
+        public CommandFactory(ICommandReceiver receiver)
+        {
+            this.receiver = receiver;
+        }
+
         public virtual ICommand CreateCommand(string userName, string action, string argument)
         {
             if (string.IsNullOrEmpty(userName))
@@ -26,13 +33,13 @@ namespace ConsoleTwitter
             {
                 case null:
                 case "":
-                    return new ReadCommand(userName);
+                return new ReadCommand(this.receiver, userName);
                 case WallToken:
-                    return new WallCommand(userName);
+                return new WallCommand(this.receiver, userName);
                 case FollowToken:
-                    return new FollowCommand(userName, argument);
+                return new FollowCommand(this.receiver, userName, argument);
                 case PostToken:
-                    return new PostCommand(userName, argument);
+                return new PostCommand(this.receiver, userName, argument);
                 default:
                     return new NullCommand();
             }

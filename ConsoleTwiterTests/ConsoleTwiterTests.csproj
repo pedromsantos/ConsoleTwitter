@@ -36,6 +36,7 @@
     <Compile Include="CommandFactoryTests.cs" />
     <Compile Include="InputParserTests.cs" />
     <Compile Include="ProgramTests.cs" />
+    <Compile Include="CommandTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions">

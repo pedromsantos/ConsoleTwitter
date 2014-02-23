@@ -48,6 +48,7 @@
     <Compile Include="UserCommands\WallCommand.cs" />
     <Compile Include="IConsole.cs" />
     <Compile Include="IInputParser.cs" />
+    <Compile Include="ICommandReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
