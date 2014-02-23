@@ -33,17 +33,6 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
-        public void GivenACommandReceiverWhenPostIsExecutedThenItCallsUserRepositoryToSearchForUser()
-        {
-            var repository = Substitute.For<IRepository>(); 
-            var receiver = new CommandReceiver(repository);
-
-            receiver.Post("Bob", "message");
-
-            repository.Received().FindByIdentifier("Bob");
-        }
-
-        [Test]
         public void GivenACommandReceiverWhenWallIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
             var repository = Substitute.For<IRepository>();
@@ -55,14 +44,45 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
-        public void GivenACommandReceiverAndThatTheUserPostingIsNotInTheSystemWhenPostIsExecutedThenItCallsRepositoryCreate()
+        public void GivenACommandReceiverWhenPostIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
+            var userWall = Substitute.For<IUserWall>();
             var repository = Substitute.For<IRepository>(); 
             var receiver = new CommandReceiver(repository);
+
+            repository.FindByIdentifier("Bob").Returns(new User("Bob", userWall));
+
+            receiver.Post("Bob", "message");
+
+            repository.Received().FindByIdentifier("Bob");
+        }
+
+        [Test]
+        public void GivenACommandReceiverAndThatTheUserPostingIsNotInTheSystemWhenPostIsExecutedThenItCallsRepositoryCreate()
+        {
+            var userWall = Substitute.For<IUserWall>();
+            var repository = Substitute.For<IRepository>(); 
+            var receiver = new CommandReceiver(repository);
+
+            repository.Create("Bob").Returns(new User("Bob", userWall));
 
             receiver.Post("Bob", "message");
 
             repository.Received().Create("Bob");
+        }
+
+        [Test]
+        public void GivenACommandReceiverWhenPostIsExecutedThenCallsAddMessageOnUserWall()
+        {
+            var userWall = Substitute.For<IUserWall>();
+            var repository = Substitute.For<IRepository>(); 
+            var receiver = new CommandReceiver(repository);
+
+            repository.FindByIdentifier("Bob").Returns(new User("Bob", userWall));
+
+            receiver.Post("Bob", "message");
+
+            userWall.Received().AddMessage("message");
         }
     }
 }

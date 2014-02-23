@@ -23,8 +23,10 @@ namespace ConsoleTwitter
 
             if (user == null)
             {
-                this.repository.Create(userHandle);
+                user = this.repository.Create(userHandle);
             }
+
+            user.AddMessage(message);
         }
 
         public void Read(string userHandle)

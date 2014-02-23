@@ -6,7 +6,7 @@ namespace ConsoleTwitter
     {
         User FindByIdentifier(string identifier);
 
-        void Create(string identifier);
+        User Create(string identifier);
     }
 }
 
