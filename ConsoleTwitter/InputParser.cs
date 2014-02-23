@@ -1,49 +1,30 @@
 ﻿namespace ConsoleTwitter
 {
     using System.Linq;
-
+    
     public class InputParser
     {
-        private const string FollowToken = "follows";
-        private const string WallToken = "wall";
-        private const string PostToken = "->";
+        private const int UserTokenPosition = 1;
+        private const int ActionTokenPosition = 2;
+        
+        private const char SeparatorToken = ' ';
 
-        public ICommand Parse(string userAction)
+        private ICommandFactory commandFactory;
+
+        public InputParser (ICommandFactory commandFactory)
         {
-            if (string.IsNullOrEmpty(userAction))
-            {
-                return new NullCommand();
-            }
+            this.commandFactory = commandFactory;
+        }
+        
+        public ICommand Parse(string userInput)
+        {
+            var tokenizedInput = userInput.Split(SeparatorToken);
 
-            var tokenizedInput = userAction.Split(' ');
-
-            var userName = tokenizedInput[0];
-
-            if (tokenizedInput.Count() > 1)
-            {
-                var action = tokenizedInput[1].ToLower();
-
-                if (action == FollowToken)
-                {
-                    var userToFollow = tokenizedInput[2];
-
-                    return new FollowCommand(userName, userToFollow);    
-                }
-
-                if (action == WallToken)
-                {
-                    return new WallCommand(userName);
-                }
-
-                if (action == PostToken)
-                {
-                    var message = tokenizedInput[2];
-
-                    return new PostCommand(userName, message);
-                }
-            }
-
-            return new ReadCommand(userName);
+            var userName = tokenizedInput.First();
+            var action = tokenizedInput.Skip(UserTokenPosition).FirstOrDefault();
+            var argument = tokenizedInput.Skip(ActionTokenPosition).FirstOrDefault();
+            
+            return this.commandFactory.CreateCommand(userName, action, argument);
         }
     }
 }
