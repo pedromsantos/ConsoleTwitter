@@ -46,6 +46,8 @@
     <Compile Include="UserCommands\PostCommand.cs" />
     <Compile Include="UserCommands\ReadCommand.cs" />
     <Compile Include="UserCommands\WallCommand.cs" />
+    <Compile Include="IConsole.cs" />
+    <Compile Include="IInputParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

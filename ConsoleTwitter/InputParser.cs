@@ -1,8 +1,8 @@
 ﻿namespace ConsoleTwitter
 {
     using System.Linq;
-    
-    public class InputParser
+
+    public class InputParser : IInputParser
     {
         private const int UserTokenPosition = 1;
         private const int ActionTokenPosition = 2;
