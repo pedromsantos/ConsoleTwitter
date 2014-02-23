@@ -42,6 +42,17 @@ namespace ConsoleTwiterTests
 
             repository.Received().FindByIdentifier("Bob");
         }
+
+        [Test]
+        public void GivenACommandReceiverWhenWallIsExecutedThenItCallsUserRepositoryToSearchForUser()
+        {
+            var repository = Substitute.For<IRepository>(); 
+            var receiver = new CommandReceiver(repository);
+
+            receiver.Wall("Bob");
+
+            repository.Received().FindByIdentifier("Bob");
+        }
     }
 }
 

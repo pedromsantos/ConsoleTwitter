@@ -27,9 +27,9 @@ namespace ConsoleTwitter
             this.repository.FindByIdentifier(user);
         }
 
-        public void Wall(string bob)
+        public void Wall(string user)
         {
-            throw new NotImplementedException();
+            this.repository.FindByIdentifier(user);
         }
     }
 }
