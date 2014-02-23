@@ -14,11 +14,11 @@ namespace ConsoleTwiterTests
         {
             var receiver = Substitute.For<ICommandReceiver>();
 
-            var command = new ReadCommand(receiver, "user");
+            var command = new ReadCommand(receiver, "Bob");
 
             command.Execute();
 
-            receiver.Received().Read("user");
+            receiver.Received().Read("Bob");
         }
 
         [Test]
@@ -26,11 +26,35 @@ namespace ConsoleTwiterTests
         {
             var receiver = Substitute.For<ICommandReceiver>();
 
-            var command = new PostCommand(receiver, "user", "message");
+            var command = new PostCommand(receiver, "Bob", "message");
 
             command.Execute();
 
-            receiver.Received().Post("user", "message");
+            receiver.Received().Post("Bob", "message");
+        }
+
+        [Test]
+        public void GivenAFollowCommandWhenExecuteMethodIsCalledThenItCallsFollowInTheCommandReceiver()
+        {
+            var receiver = Substitute.For<ICommandReceiver>();
+
+            var command = new FollowCommand(receiver, "Alice", "Bob");
+
+            command.Execute();
+
+            receiver.Received().Follow("Alice", "Bob");
+        }
+
+        [Test]
+        public void GivenAWallCommandWhenExecuteMethodIsCalledThenItCallsWallInTheCommandReceiver()
+        {
+            var receiver = Substitute.For<ICommandReceiver>();
+
+            var command = new WallCommand(receiver, "Bob");
+
+            command.Execute();
+
+            receiver.Received().Wall("Bob");
         }
     }
 }

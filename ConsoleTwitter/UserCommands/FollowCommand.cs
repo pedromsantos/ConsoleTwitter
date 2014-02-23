@@ -10,9 +10,9 @@
 
         public string UserToFollow { get; private set; }
 
-        public override void Execute ()
+        public override void Execute()
         {
-            throw new System.NotImplementedException ();
+            this.receiver.Follow(User, UserToFollow);
         }
     }
 }
