@@ -49,6 +49,8 @@
     <Compile Include="IConsole.cs" />
     <Compile Include="IInputParser.cs" />
     <Compile Include="ICommandReceiver.cs" />
+    <Compile Include="CommandReceiver.cs" />
+    <Compile Include="IRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -66,7 +68,7 @@
       <Properties>
         <Policies>
           <TextStylePolicy FileWidth="120" inheritsSet="VisualStudio" inheritsScope="text/plain" scope="text/x-csharp" />
-          <CSharpFormattingPolicy StatementBraceStyle="NextLine" AfterDelegateDeclarationParameterComma="True" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
+          <CSharpFormattingPolicy StatementBraceStyle="NextLine" BeforeMethodDeclarationParentheses="False" BeforeMethodCallParentheses="False" BeforeConstructorDeclarationParentheses="False" BeforeIndexerDeclarationBracket="False" BeforeDelegateDeclarationParentheses="False" AfterDelegateDeclarationParameterComma="True" NewParentheses="False" SpacesBeforeBrackets="False" inheritsSet="Mono" inheritsScope="text/x-csharp" scope="text/x-csharp" />
         </Policies>
       </Properties>
     </MonoDevelop>

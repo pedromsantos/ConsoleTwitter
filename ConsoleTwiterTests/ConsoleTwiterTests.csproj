@@ -37,6 +37,7 @@
     <Compile Include="InputParserTests.cs" />
     <Compile Include="ProgramTests.cs" />
     <Compile Include="CommandTests.cs" />
+    <Compile Include="CommandReceiverTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions">
