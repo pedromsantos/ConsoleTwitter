@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace ConsoleTwitter
 {
-    public interface IUserWall
+    public interface IWall
     {
-        void AddMessage(string message);
+        void Post(string message);
     }
     
 }

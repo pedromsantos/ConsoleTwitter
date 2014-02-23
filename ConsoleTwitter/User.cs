@@ -3,21 +3,21 @@ using System.Collections.Generic;
 
 namespace ConsoleTwitter
 {
-    public class User : IUserWall
+    public class User : IWall
     {
-        private IUserWall userWall;
+        private IWall wall;
 
-        public User(string userHandle, IUserWall userWall)
+        public User(string userHandle, IWall wall)
         {
-            this.userWall = userWall;
+            this.wall = wall;
             this.UserHandle = userHandle;
         }
 
         public string UserHandle { get; private set; }
 
-        public void AddMessage(string message)
+        public void Post(string message)
         {
-            this.userWall.AddMessage(message);
+            this.wall.Post(message);
         }
     }
 }

@@ -26,7 +26,7 @@ namespace ConsoleTwitter
                 user = this.repository.Create(userHandle);
             }
 
-            user.AddMessage(message);
+            user.Post(message);
         }
 
         public void Read(string userHandle)

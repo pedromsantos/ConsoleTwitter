@@ -46,7 +46,7 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenACommandReceiverWhenPostIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
-            var userWall = Substitute.For<IUserWall>();
+            var userWall = Substitute.For<IWall>();
             var repository = Substitute.For<IRepository>(); 
             var receiver = new CommandReceiver(repository);
 
@@ -60,7 +60,7 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenACommandReceiverAndThatTheUserPostingIsNotInTheSystemWhenPostIsExecutedThenItCallsRepositoryCreate()
         {
-            var userWall = Substitute.For<IUserWall>();
+            var userWall = Substitute.For<IWall>();
             var repository = Substitute.For<IRepository>(); 
             var receiver = new CommandReceiver(repository);
 
@@ -72,9 +72,9 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
-        public void GivenACommandReceiverWhenPostIsExecutedThenCallsAddMessageOnUserWall()
+        public void GivenACommandReceiverWhenPostIsExecutedThenCallsPostOnUserWall()
         {
-            var userWall = Substitute.For<IUserWall>();
+            var userWall = Substitute.For<IWall>();
             var repository = Substitute.For<IRepository>(); 
             var receiver = new CommandReceiver(repository);
 
@@ -82,7 +82,7 @@ namespace ConsoleTwiterTests
 
             receiver.Post("Bob", "message");
 
-            userWall.Received().AddMessage("message");
+            userWall.Received().Post("message");
         }
     }
 }

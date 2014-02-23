@@ -52,7 +52,7 @@
     <Compile Include="CommandReceiver.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="User.cs" />
-    <Compile Include="IUserWall.cs" />
+    <Compile Include="IWall.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
