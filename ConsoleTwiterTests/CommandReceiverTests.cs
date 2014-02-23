@@ -46,12 +46,23 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenACommandReceiverWhenWallIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
-            var repository = Substitute.For<IRepository>(); 
+            var repository = Substitute.For<IRepository>();
             var receiver = new CommandReceiver(repository);
 
             receiver.Wall("Bob");
 
             repository.Received().FindByIdentifier("Bob");
+        }
+
+        [Test]
+        public void GivenACommandReceiverAndThatTheUserPostingIsNotInTheSystemWhenPostIsExecutedThenItCallsRepositoryCreate()
+        {
+            var repository = Substitute.For<IRepository>(); 
+            var receiver = new CommandReceiver(repository);
+
+            receiver.Post("Bob", "message");
+
+            repository.Received().Create("Bob");
         }
     }
 }

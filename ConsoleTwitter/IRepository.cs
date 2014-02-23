@@ -4,7 +4,9 @@ namespace ConsoleTwitter
 {
     public interface IRepository
     {
-        void FindByIdentifier(string identifier);
+        User FindByIdentifier(string identifier);
+
+        void Create(string identifier);
     }
 }
 

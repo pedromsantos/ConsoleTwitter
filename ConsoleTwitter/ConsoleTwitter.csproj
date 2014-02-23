@@ -51,6 +51,7 @@
     <Compile Include="ICommandReceiver.cs" />
     <Compile Include="CommandReceiver.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="User.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

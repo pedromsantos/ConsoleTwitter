@@ -19,7 +19,12 @@ namespace ConsoleTwitter
 
         public void Post(string userHandle, string message)
         {
-            this.FindUserByHandle(userHandle);
+            var user = this.FindUserByHandle(userHandle);
+
+            if (user == null)
+            {
+                this.repository.Create(userHandle);
+            }
         }
 
         public void Read(string userHandle)
@@ -32,9 +37,9 @@ namespace ConsoleTwitter
             this.FindUserByHandle(userHandle);
         }
 
-        private void FindUserByHandle(string userHandle)
+        private User FindUserByHandle(string userHandle)
         {
-            this.repository.FindByIdentifier(userHandle);
+            return this.repository.FindByIdentifier(userHandle);
         }
     }
 }
