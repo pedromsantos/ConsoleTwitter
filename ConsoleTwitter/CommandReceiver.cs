@@ -13,7 +13,8 @@ namespace ConsoleTwitter
 
         public void Follow(string user, string userToFollow)
         {
-            throw new NotImplementedException();
+            this.repository.FindByIdentifier(user);
+            this.repository.FindByIdentifier(userToFollow);
         }
 
         public void Post(string user, string message)

@@ -10,13 +10,25 @@ namespace ConsoleTwiterTests
     public class CommandReceiverTests
     {
         [Test]
-        public void GivenACommandReceiverWhenReadIsExecutedThenItCallsUserRepositoryToSerchForUser()
+        public void GivenACommandReceiverWhenReadIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
             var repository = Substitute.For<IRepository>(); 
             var receiver = new CommandReceiver(repository);
 
             receiver.Read("Bob");
 
+            repository.Received().FindByIdentifier("Bob");
+        }
+
+        [Test]
+        public void GivenACommandReceiverWhenFollowIsExecutedThenItCallsUserRepositoryTwiceToSearchForUserAndUserToFollow()
+        {
+            var repository = Substitute.For<IRepository>(); 
+            var receiver = new CommandReceiver(repository);
+
+            receiver.Follow("Alice", "Bob");
+
+            repository.Received().FindByIdentifier("Alice");
             repository.Received().FindByIdentifier("Bob");
         }
     }
