@@ -11,12 +11,12 @@
 
         private ICommandFactory commandFactory;
 
-        public InputParser (ICommandFactory commandFactory)
+        public InputParser(ICommandFactory commandFactory)
         {
             this.commandFactory = commandFactory;
         }
         
-        public ICommand Parse(string userInput)
+        public virtual ICommand Parse(string userInput)
         {
             var tokenizedInput = userInput.Split(SeparatorToken);
 
