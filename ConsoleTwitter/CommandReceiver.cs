@@ -11,25 +11,30 @@ namespace ConsoleTwitter
             this.repository = repository;
         }
 
-        public void Follow(string user, string userToFollow)
+        public void Follow(string userHandle, string userHandleToFollow)
         {
-            this.repository.FindByIdentifier(user);
-            this.repository.FindByIdentifier(userToFollow);
+            this.FindUserByHandle(userHandle);
+            this.FindUserByHandle(userHandleToFollow);
         }
 
-        public void Post(string user, string message)
+        public void Post(string userHandle, string message)
         {
-            this.repository.FindByIdentifier(user);
+            this.FindUserByHandle(userHandle);
         }
 
-        public void Read(string user)
+        public void Read(string userHandle)
         {
-            this.repository.FindByIdentifier(user);
+            this.FindUserByHandle(userHandle);
         }
 
-        public void Wall(string user)
+        public void Wall(string userHandle)
         {
-            this.repository.FindByIdentifier(user);
+            this.FindUserByHandle(userHandle);
+        }
+
+        private void FindUserByHandle(string userHandle)
+        {
+            this.repository.FindByIdentifier(userHandle);
         }
     }
 }
