@@ -12,7 +12,7 @@
 
         public override void Execute()
         {
-            this.receiver.Follow(User, UserToFollow);
+            this.broker.Follow(User, UserToFollow);
         }
     }
 }

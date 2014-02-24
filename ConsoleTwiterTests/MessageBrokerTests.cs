@@ -3,6 +3,7 @@ using NUnit.Framework;
 using NSubstitute;
 
 using ConsoleTwitter;
+using FluentAssertions;
 
 namespace ConsoleTwiterTests
 {
@@ -30,9 +31,29 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenAMessageBrokerWhenReadIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
+            repository.FindByIdentifier("Bob").Returns(bob);
+
             broker.Read("Bob");
 
             repository.Received().FindByIdentifier("Bob");
+        }
+
+        [Test]
+        public void GivenAMessageBrokerWhenReadIsExecutedThenItCallsPostsOnUserWall()
+        {
+            repository.FindByIdentifier("Bob").Returns(bob);
+
+            broker.Read("Bob");
+
+            var temp = userWall.Received().Posts;
+        }
+
+        [Test]
+        public void GivenAMessageBrokerAndANonExistingUserWhenReadIsExecutedThenItReturnsNoMessages()
+        {
+            var result = broker.Read("Bob");
+
+            result.Should().BeEmpty();
         }
 
         [Test]

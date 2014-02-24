@@ -55,6 +55,7 @@
     <Compile Include="IMessageBroker.cs" />
     <Compile Include="UserRepository.cs" />
     <Compile Include="UserWall.cs" />
+    <Compile Include="UserCommands\IQueryCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

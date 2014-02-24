@@ -29,6 +29,14 @@ namespace ConsoleTwiterTests
 
             userWall.Received().Post("message");
         }
+
+        [Test]
+        public void GivenAUserWhenPostsIsCalledThenItCallsPostsOnWall()
+        {
+            bob.Post("message");
+
+            var temp = userWall.Received().Posts;
+        }
             
         [Test]
         public void GivenAUserWhenAddFollowerIsCalledThenItAddsTheFollowerToItsListOfFollowers()

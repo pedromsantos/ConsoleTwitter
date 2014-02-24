@@ -1,12 +1,14 @@
-﻿namespace ConsoleTwitter
+﻿using System.Collections.Generic;
+
+namespace ConsoleTwitter
 {
     public abstract class Command : ICommand
     {
-        protected IMessageBroker receiver;
+        protected IMessageBroker broker;
 
-        protected Command(IMessageBroker receiver, string userName)
+        protected Command(IMessageBroker broker, string userName)
         {
-            this.receiver = receiver;
+            this.broker = broker;
             this.User = userName;
         }
 

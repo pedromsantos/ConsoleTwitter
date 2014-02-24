@@ -12,7 +12,7 @@
 
         public override void Execute ()
         {
-            this.receiver.Post(User, Message);
+            this.broker.Post(User, Message);
         }
     }
 }

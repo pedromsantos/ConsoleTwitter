@@ -9,7 +9,7 @@
 
         public override void Execute ()
         {
-            this.receiver.Wall(User);
+            this.broker.Wall(User);
         }
     }
 }

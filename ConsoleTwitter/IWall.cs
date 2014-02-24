@@ -8,6 +8,8 @@ namespace ConsoleTwitter
         void Post(string message);
 
         IEnumerable<string> Wall { get; }
+
+        IEnumerable<string> Posts { get; }
     }
     
 }

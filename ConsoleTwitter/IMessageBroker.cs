@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace ConsoleTwitter
 {
@@ -8,7 +9,7 @@ namespace ConsoleTwitter
 
         void Post(string user, string message);
 
-        void Read(string user);
+        IEnumerable<string> Read(string user);
 
         void Wall(string bob);
     }

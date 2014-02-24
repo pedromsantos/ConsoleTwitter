@@ -3,6 +3,7 @@ using NUnit.Framework;
 using NSubstitute;
 
 using ConsoleTwitter;
+using FluentAssertions;
 
 namespace ConsoleTwiterTests
 {
@@ -25,6 +26,18 @@ namespace ConsoleTwiterTests
             command.Execute();
 
             receiver.Received().Read("Bob");
+        }
+
+        [Test]
+        public void GivenAReadCommandWhenExecuteMethodIsCalledThenItStoresTheExecutionResultInResults()
+        {
+            var command = new ReadCommand(receiver, "Bob");
+
+            receiver.Read("Bob").Returns(new [] { "message" });
+
+            command.Execute();
+
+            ((IQueryCommand)command).Results.Should().Contain("message");
         }
 
         [Test]

@@ -77,7 +77,7 @@ namespace ConsoleTwiterTests
 
             userWallMock.Received().Post("my message");
         }
-
+            
         [Test]
         [Category("Integration")]
         public void GivenTheUserTypesAPostCommandWhenProcessUserInputIsCalledThenTheUserWallShouldContainPostedMessage()
@@ -96,6 +96,27 @@ namespace ConsoleTwiterTests
             var user = repository.FindByIdentifier("Bob");
 
             user.Wall.Should().Contain("my message");
+        }
+
+        [Test]
+        [Category("Integration")]
+        public void GivenAliceWantsToReadCharliesWallAndCharlieHasMessagesOnHisWallWhenProcessUserInputIsCalledThenTheProgramDisplaysCharliesWallMessages()
+        {
+            var repository = new UserRepository();
+            var broker = new MessageBroker(repository);
+            var commandFactory = new CommandFactory(broker);
+            var parser = new InputParser(commandFactory);
+
+            var charlie = repository.Create("charlie");
+            ((IWall)charlie).Post("message from charlie");
+
+            consoleMock.ConsoleRead().Returns("charlie");
+
+            var program = new Program(consoleMock, parser);
+
+            program.ProcessUserInput();
+
+            consoleMock.Received().ConsoleWrite("message from charlie");
         }
     }
 }

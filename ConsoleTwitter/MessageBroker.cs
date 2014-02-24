@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace ConsoleTwitter
 {
@@ -32,9 +34,16 @@ namespace ConsoleTwitter
             user.Followers.ToList().ForEach(u => u.Post(message));
         }
 
-        public void Read(string userHandle)
+        public IEnumerable<string> Read(string userHandle)
         {
-            this.FindUserByHandle(userHandle);
+            var user = this.FindUserByHandle(userHandle);
+
+            if (user == null)
+            {
+                return new Collection<string> { };
+            }
+
+            return user.Posts;
         }
 
         public void Wall(string userHandle)

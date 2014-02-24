@@ -18,9 +18,17 @@ namespace ConsoleTwitter
             internalMessages.Add(message);
         }
 
-        public IEnumerable<string> Wall 
+        public IEnumerable<string> Wall
         {
             get 
+            {
+                return internalMessages.Skip(0);
+            }
+        }
+
+        public IEnumerable<string> Posts
+        {
+            get
             {
                 return internalMessages.Skip(0);
             }
