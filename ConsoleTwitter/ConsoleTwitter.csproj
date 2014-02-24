@@ -58,6 +58,8 @@
     <Compile Include="UserCommands\IQueryCommand.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="SystemTime.cs" />
+    <Compile Include="IMessageFormater.cs" />
+    <Compile Include="OutputMessageFormater.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

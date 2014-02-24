@@ -4,7 +4,6 @@ using System.Linq;
 
 namespace ConsoleTwitter
 {
-
     public class Message
     {
         private User user;

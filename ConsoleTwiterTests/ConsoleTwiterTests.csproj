@@ -41,6 +41,7 @@
     <Compile Include="MessageBrokerTests.cs" />
     <Compile Include="UserRepositoryTests.cs" />
     <Compile Include="UserWallTests.cs" />
+    <Compile Include="MessageFormaterTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions">

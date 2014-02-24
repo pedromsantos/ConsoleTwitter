@@ -4,12 +4,15 @@ namespace ConsoleTwitter
 {
     public class Program
     {
-        IConsole consoleWrapper;
+        private IConsole consoleWrapper;
 
-        IInputParser parser;
+        private IInputParser parser;
 
-        public Program(IConsole consoleWrapper, IInputParser parser)
+        private IMessageFormater formater;
+
+        public Program(IConsole consoleWrapper, IInputParser parser, IMessageFormater formater)
         {
+            this.formater = formater;
             this.parser = parser;
             this.consoleWrapper = consoleWrapper;
         }
@@ -29,7 +32,8 @@ namespace ConsoleTwitter
 
             if (command is IQueryCommand)
             {
-                ((IQueryCommand)command).Results.ToList().ForEach(r => this.consoleWrapper.ConsoleWrite(r.Body));
+                ((IQueryCommand)command).Results.ToList().ForEach(r => 
+                    this.consoleWrapper.ConsoleWrite(formater.Format(r)));
             }
 
             return true;
