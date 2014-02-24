@@ -35,7 +35,7 @@ namespace ConsoleTwiterTests
 
             bob = new User("Bob", userWallMock);
 
-            formater = new MessageFormater();
+            formater = new MessageFormater(new ElapsedTimeMessageFormater());
         }
 
         [Test]
