@@ -148,6 +148,24 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
+        [Category("Integration")]
+        public void GivenAliceWantsToReadCharliesWallButCharlieHasNoMessagesOnHisWallWhenProcessUserInputIsCalledThenTheProgramDisplaysNothing()
+        {
+            var repository = new UserRepository();
+            var broker = new MessageBroker(repository);
+            var commandFactory = new CommandFactory(broker);
+            var parser = new InputParser(commandFactory);
+
+            consoleMock.ConsoleRead().Returns("charlie");
+
+            var program = new Program(consoleMock, parser, formater);
+
+            program.ProcessUserInput();
+
+            consoleMock.DidNotReceive().ConsoleWrite("");
+        }
+            
+        [Test]
         public void GivenTheUserTypesAnInvalidInputWhenProcessUserInputIsCalledThenItDoesNotExecuteCommand()
         {
             var program = new Program(consoleMock, parserMock, formaterMock);

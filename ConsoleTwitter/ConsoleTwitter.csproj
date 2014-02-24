@@ -37,29 +37,29 @@
     <Compile Include="InputParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UserCommands\Command.cs" />
-    <Compile Include="UserCommands\CommandFactory.cs" />
-    <Compile Include="UserCommands\FollowCommand.cs" />
-    <Compile Include="UserCommands\ICommand.cs" />
-    <Compile Include="UserCommands\ICommandFactory.cs" />
-    <Compile Include="UserCommands\NullCommand.cs" />
-    <Compile Include="UserCommands\PostCommand.cs" />
-    <Compile Include="UserCommands\ReadCommand.cs" />
-    <Compile Include="UserCommands\WallCommand.cs" />
-    <Compile Include="IConsole.cs" />
     <Compile Include="IInputParser.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="IWall.cs" />
     <Compile Include="MessageBroker.cs" />
     <Compile Include="IMessageBroker.cs" />
     <Compile Include="UserRepository.cs" />
-    <Compile Include="UserWall.cs" />
-    <Compile Include="UserCommands\IQueryCommand.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="SystemTime.cs" />
-    <Compile Include="IMessageFormater.cs" />
-    <Compile Include="OutputMessageFormater.cs" />
+    <Compile Include="Users\IWall.cs" />
+    <Compile Include="Users\User.cs" />
+    <Compile Include="Users\UserWall.cs" />
+    <Compile Include="Wrappers\SystemTime.cs" />
+    <Compile Include="Wrappers\IConsole.cs" />
+    <Compile Include="Messages\Message.cs" />
+    <Compile Include="Messages\OutputMessageFormater.cs" />
+    <Compile Include="Messages\IMessageFormater.cs" />
+    <Compile Include="Commands\Command.cs" />
+    <Compile Include="Commands\CommandFactory.cs" />
+    <Compile Include="Commands\FollowCommand.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\ICommandFactory.cs" />
+    <Compile Include="Commands\NullCommand.cs" />
+    <Compile Include="Commands\PostCommand.cs" />
+    <Compile Include="Commands\ReadCommand.cs" />
+    <Compile Include="Commands\WallCommand.cs" />
+    <Compile Include="Commands\IQueryCommand.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -83,6 +83,9 @@
     </MonoDevelop>
   </ProjectExtensions>
   <ItemGroup>
-    <Folder Include="UserCommands\" />
+    <Folder Include="Users\" />
+    <Folder Include="Wrappers\" />
+    <Folder Include="Messages\" />
+    <Folder Include="Commands\" />
   </ItemGroup>
 </Project>
