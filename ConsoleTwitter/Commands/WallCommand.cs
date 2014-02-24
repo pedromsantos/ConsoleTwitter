@@ -1,4 +1,6 @@
-﻿namespace ConsoleTwitter
+﻿using System.Collections.Generic;
+
+namespace ConsoleTwitter
 {
     public class WallCommand : Command, IQueryCommand
     {
@@ -9,15 +11,9 @@
 
         public override void Execute ()
         {
-            this.broker.Wall(User);
+            this.Results = this.broker.Wall(User);
         }
 
-        public System.Collections.Generic.IEnumerable<Message> Results 
-        {
-            get 
-            {
-                throw new System.NotImplementedException();
-            }
-        }
+        public IEnumerable<Message> Results { get; private set; }
     }
 }

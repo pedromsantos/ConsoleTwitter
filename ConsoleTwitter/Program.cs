@@ -2,18 +2,17 @@
 
 namespace ConsoleTwitter
 {
-
     public class Program
     {
         private IConsole consoleWrapper;
 
         private IInputParser parser;
 
-        private IMessageFormater formater;
+        private IMessageFormaterFactory formaterFactory;
 
-        public Program(IConsole consoleWrapper, IInputParser parser, IMessageFormater formater)
+        public Program(IConsole consoleWrapper, IInputParser parser, IMessageFormaterFactory formaterFactory)
         {
-            this.formater = formater;
+            this.formaterFactory = formaterFactory;
             this.parser = parser;
             this.consoleWrapper = consoleWrapper;
         }
@@ -33,6 +32,8 @@ namespace ConsoleTwitter
 
             if (command is IQueryCommand)
             {
+                var formater = formaterFactory.CreateFormaterForCommand((IQueryCommand)command);
+
                 ((IQueryCommand)command).Results.ToList().ForEach(r => 
                     this.consoleWrapper.ConsoleWrite(formater.Format(r)));
             }

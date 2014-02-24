@@ -32,8 +32,6 @@ namespace ConsoleTwitter
             }
 
             user.Post(message);
-
-            user.Followers.ToList().ForEach(u => u.Post(message));
         }
 
         public IEnumerable<Message> Read(string userHandle)

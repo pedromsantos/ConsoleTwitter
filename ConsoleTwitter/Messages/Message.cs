@@ -6,20 +6,20 @@ namespace ConsoleTwitter
 {
     public class Message
     {
-        private User user;
+        private IUser user;
 
         private string message;
 
         private DateTime timestamp;
 
-        public Message(User user, string message)
+        public Message(IUser user, string message)
         {
             this.message = message;
             this.user = user;
             this.timestamp = SystemTime.Now();
         }
 
-        public User User 
+        public IUser User 
         {
             get 
             {

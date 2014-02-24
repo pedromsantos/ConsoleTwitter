@@ -16,10 +16,9 @@ namespace ConsoleTwiterTests
         private IRepository<IUser> repositoryMock; 
         private IMessageBroker brokerMock;
         private IWall userWallMock;
-        private IMessageFormater formaterMock;
+        private IMessageFormaterFactory formaterFactoryMock;
 
         private User bob;
-        private IMessageFormater formater;
 
         [SetUp]
         public void SetUp()
@@ -31,11 +30,9 @@ namespace ConsoleTwiterTests
             userWallMock = Substitute.For<IWall>();
             parserMock = Substitute.For<IInputParser>();
             brokerMock = Substitute.For<IMessageBroker>();
-            formaterMock = Substitute.For<IMessageFormater>();
+            formaterFactoryMock = Substitute.For<IMessageFormaterFactory>();
 
             bob = new User("Bob", userWallMock);
-
-            formater = new MessageFormater(new ElapsedTimeMessageFormater());
         }
 
         [Test]
@@ -43,7 +40,7 @@ namespace ConsoleTwiterTests
         {
             consoleMock.ConsoleRead().Returns("user input");
 
-            var program = new Program(consoleMock, parserMock, formaterMock);
+            var program = new Program(consoleMock, parserMock, formaterFactoryMock);
 
             program.ProcessUserInput();
 
@@ -59,7 +56,7 @@ namespace ConsoleTwiterTests
 
             consoleMock.ConsoleRead().Returns("Bob -> my message");
 
-            var program = new Program(consoleMock, parser, formaterMock);
+            var program = new Program(consoleMock, parser, formaterFactoryMock);
 
             program.ProcessUserInput();
 
@@ -79,7 +76,7 @@ namespace ConsoleTwiterTests
 
             repositoryMock.FindByIdentifier("Bob").Returns(bob);
 
-            var program = new Program(consoleMock, parser, formaterMock);
+            var program = new Program(consoleMock, parser, formaterFactoryMock);
 
             program.ProcessUserInput();
 
@@ -97,7 +94,7 @@ namespace ConsoleTwiterTests
 
             consoleMock.ConsoleRead().Returns("Bob -> my message");
 
-            var program = new Program(consoleMock, parser, formaterMock);
+            var program = new Program(consoleMock, parser, formaterFactoryMock);
 
             program.ProcessUserInput();
 
@@ -120,7 +117,7 @@ namespace ConsoleTwiterTests
 
             consoleMock.ConsoleRead().Returns("charlie");
 
-            var program = new Program(consoleMock, parser, formater);
+            var program = new Program(consoleMock, parser, new MessageFormaterFactory());
 
             program.ProcessUserInput();
 
@@ -141,7 +138,7 @@ namespace ConsoleTwiterTests
 
             consoleMock.ConsoleRead().Returns("charlie");
 
-            var program = new Program(consoleMock, parser, formater);
+            var program = new Program(consoleMock, parser, new MessageFormaterFactory());
 
             program.ProcessUserInput();
 
@@ -159,7 +156,7 @@ namespace ConsoleTwiterTests
 
             consoleMock.ConsoleRead().Returns("charlie");
 
-            var program = new Program(consoleMock, parser, formater);
+            var program = new Program(consoleMock, parser, formaterFactoryMock);
 
             program.ProcessUserInput();
 
@@ -180,7 +177,7 @@ namespace ConsoleTwiterTests
 
             consoleMock.ConsoleRead().Returns("charlie follows alice");
 
-            var program = new Program(consoleMock, parser, formater);
+            var program = new Program(consoleMock, parser, formaterFactoryMock);
 
             program.ProcessUserInput();
 
@@ -199,7 +196,7 @@ namespace ConsoleTwiterTests
             var charlie = repository.Create("charlie");
             repository.Create("alice");
 
-            var program = new Program(consoleMock, parser, formater);
+            var program = new Program(consoleMock, parser, new MessageFormaterFactory());
 
             consoleMock.ConsoleRead().Returns("charlie follows alice");
             program.ProcessUserInput();
@@ -225,10 +222,10 @@ namespace ConsoleTwiterTests
             var commandFactory = new CommandFactory(broker);
             var parser = new InputParser(commandFactory);
 
-            var charlie = repository.Create("charlie");
-            var alice = repository.Create("alice");
+            repository.Create("charlie");
+            repository.Create("alice");
 
-            var program = new Program(consoleMock, parser, formater);
+            var program = new Program(consoleMock, parser, new MessageFormaterFactory());
 
             consoleMock.ConsoleRead().Returns("charlie follows alice");
             program.ProcessUserInput();
@@ -242,13 +239,14 @@ namespace ConsoleTwiterTests
             consoleMock.ConsoleRead().Returns("charlie wall");
             program.ProcessUserInput();
 
-            charlie.Wall.All(p => p.Body.StartsWith(charlie.UserHandle) || p.Body.StartsWith(alice.UserHandle)).Should().BeTrue();
+            consoleMock.Received().ConsoleWrite("charlie - message from charlie (0 seconds ago)");
+            //consoleMock.Received().ConsoleWrite("alice - message from charlie (0 seconds ago)");
         }
 
         [Test]
         public void GivenTheUserTypesAnInvalidInputWhenProcessUserInputIsCalledThenItDoesNotExecuteCommand()
         {
-            var program = new Program(consoleMock, parserMock, formaterMock);
+            var program = new Program(consoleMock, parserMock, formaterFactoryMock);
 
             consoleMock.ConsoleRead().Returns("");
 

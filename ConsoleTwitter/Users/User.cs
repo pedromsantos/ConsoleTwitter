@@ -33,12 +33,14 @@ namespace ConsoleTwitter
 
         public void Post(string message)
         {
-            this.wall.Post(this, message);
+            this.Post(this, message);
         }
 
-        public void Post(User user, string message)
+        public void Post(IUser user, string message)
         {
             this.wall.Post(user, message);
+
+            Followers.ToList().ForEach(u => u.Post(message));
         }
 
         public IEnumerable<Message> Wall

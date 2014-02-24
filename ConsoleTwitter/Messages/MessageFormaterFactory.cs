@@ -2,7 +2,7 @@ using System.Linq;
 
 namespace ConsoleTwitter
 {
-    public class MessageFormaterFactory
+    public class MessageFormaterFactory : IMessageFormaterFactory
     {
         public IMessageFormater CreateFormaterForCommand(IQueryCommand command)
         {
@@ -14,5 +14,4 @@ namespace ConsoleTwitter
             return new MessageFormater(new ElapsedTimeMessageFormater());
         }
     }
-    
 }

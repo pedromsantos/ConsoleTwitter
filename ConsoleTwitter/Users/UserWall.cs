@@ -18,7 +18,7 @@ namespace ConsoleTwitter
             internalMessages.Add(new Message(null, message));
         }
 
-        public void Post(User user, string message)
+        public void Post(IUser user, string message)
         {
             internalMessages.Add(new Message(user, message));
         }

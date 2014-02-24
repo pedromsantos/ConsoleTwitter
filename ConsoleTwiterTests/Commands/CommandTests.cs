@@ -69,6 +69,18 @@ namespace ConsoleTwiterTests
 
             receiver.Received().Wall("Bob");
         }
+
+        [Test]
+        public void GivenAWallCommandWhenExecuteMethodIsCalledThenItStoresTheExecutionResultInResults()
+        {
+            var command = new WallCommand(receiver, "Bob");
+
+            receiver.Wall("Bob").Returns(new [] { new Message(null, "message") });
+
+            command.Execute();
+
+            ((IQueryCommand)command).Results.Should().Contain(m => m.Body == "message");
+        }
     }
 }
 
