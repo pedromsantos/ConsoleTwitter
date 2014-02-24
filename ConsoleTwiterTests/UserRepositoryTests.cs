@@ -18,6 +18,18 @@ namespace ConsoleTwiterTests
 
             user.UserHandle.Should().Be("Bob");
         }
+
+        [Test]
+        public void GivenARepositoryWithAliceAndBobWhenFindByIdentifierIsCalledUsingBobsHandleThenBobsUserIsReturned()
+        {
+            var repository = new UserRepository();
+
+            repository.Create("Bob");
+
+            var user = repository.FindByIdentifier("Bob");
+
+            user.UserHandle.Should().Be("Bob");
+        }
     }
 }
 

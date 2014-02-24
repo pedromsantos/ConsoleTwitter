@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleTwitter
 {
@@ -13,7 +14,7 @@ namespace ConsoleTwitter
 
         public User FindByIdentifier(string identifier)
         {
-            throw new NotImplementedException();
+            return users.FirstOrDefault(u => u.UserHandle == identifier);
         }
 
         public User Create(string identifier)
