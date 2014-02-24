@@ -6,10 +6,18 @@ namespace ConsoleTwitter
 {
     public class UserRepository : IRepository
     {
-        private static IList<User> users = new List<User>();
+        private IList<User> users = new List<User>();
 
         public UserRepository()
         {
+        }
+
+        public IEnumerable<User> Users 
+        {
+            get 
+            {
+                return this.users;
+            }
         }
 
         public User FindByIdentifier(string identifier)
@@ -19,8 +27,13 @@ namespace ConsoleTwitter
 
         public User Create(string identifier)
         {
-            var user = new User(identifier, new UserWall());
-            users.Add(user);
+            var user = FindByIdentifier(identifier);
+
+            if (user == null)
+            {
+                user = new User(identifier, new UserWall());
+                users.Add(user);
+            }
 
             return user;
         }

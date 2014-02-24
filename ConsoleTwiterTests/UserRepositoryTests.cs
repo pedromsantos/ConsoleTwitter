@@ -3,6 +3,7 @@ using NUnit.Framework;
 using FluentAssertions;
 
 using ConsoleTwitter;
+using System.Linq;
 
 namespace ConsoleTwiterTests
 {
@@ -14,9 +15,9 @@ namespace ConsoleTwiterTests
         {
             var repository = new UserRepository();
 
-            var user = repository.Create("Bob");
+            var bob = repository.Create("Bob");
 
-            user.UserHandle.Should().Be("Bob");
+            bob.UserHandle.Should().Be("Bob");
         }
 
         [Test]
@@ -26,9 +27,21 @@ namespace ConsoleTwiterTests
 
             repository.Create("Bob");
 
-            var user = repository.FindByIdentifier("Bob");
+            var bob = repository.FindByIdentifier("Bob");
 
-            user.UserHandle.Should().Be("Bob");
+            bob.UserHandle.Should().Be("Bob");
+        }
+
+        [Test]
+        public void GivenARepositoryWithBobAsUserWhenCreateIsCalledForBobThenItDoesNotCreateANewUser()
+        {
+            var repository = new UserRepository();
+
+            repository.Create("Bob");
+
+            repository.Create("Bob");
+
+            repository.Users.Count().Should().Be(1);
         }
     }
 }
