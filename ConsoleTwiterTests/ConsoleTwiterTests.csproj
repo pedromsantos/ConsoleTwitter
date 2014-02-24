@@ -39,6 +39,7 @@
     <Compile Include="CommandTests.cs" />
     <Compile Include="UserTests.cs" />
     <Compile Include="MessageBrokerTests.cs" />
+    <Compile Include="UserRepositoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions">

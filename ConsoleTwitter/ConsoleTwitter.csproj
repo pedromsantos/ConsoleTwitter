@@ -53,6 +53,8 @@
     <Compile Include="IWall.cs" />
     <Compile Include="MessageBroker.cs" />
     <Compile Include="IMessageBroker.cs" />
+    <Compile Include="UserRepository.cs" />
+    <Compile Include="UserWall.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
