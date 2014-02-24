@@ -15,45 +15,55 @@ namespace ConsoleTwitter
 
             if (elapsedYears > 0)
             {
-                return String.Format("{0} {1} ago", elapsedYears, (elapsedYears == 1) ? "year" : "years");
+                return FormatElapsedTime(elapsedYears, "year");
             } 
 
             int elapsedMonths = SystemTime.Now().Month - date.Month; 
              
             if (elapsedMonths > 0)
             {
-                return String.Format("{0} {1} ago", elapsedMonths, (elapsedMonths == 1) ? "month" : "months");
+                return FormatElapsedTime(elapsedMonths, "month");
             } 
 
             int elapsedDays = SystemTime.Now().Day - date.Day; 
 
             if (elapsedDays > 0)
             {
-                return String.Format("{0} {1} ago", elapsedDays, (elapsedDays == 1) ? "day" : "days");
+                return FormatElapsedTime(elapsedDays, "day");
             } 
 
             int elapsedHours = SystemTime.Now().Hour - date.Hour; 
 
             if (elapsedHours > 0)
             {
-                return String.Format("{0} {1} ago", elapsedHours, (elapsedHours == 1) ? "hour" : "hours");
+                return FormatElapsedTime(elapsedHours, "hour");
             } 
 
             int elapsedMinutes = SystemTime.Now().Minute - date.Minute; 
 
             if (elapsedMinutes > 0)
             {
-                return String.Format("{0} {1} ago", elapsedMinutes, (elapsedMinutes == 1) ? "minute" : "minutes");
+                return FormatElapsedTime(elapsedMinutes, "minute");
             } 
 
             int elapsedSeconds = SystemTime.Now().Second - date.Second;
 
             if (elapsedSeconds > 0)
             {
-                return String.Format("{0} {1} ago", elapsedSeconds, (elapsedSeconds == 1) ? "second" : "seconds");
+                return FormatElapsedTime(elapsedSeconds, "second");
             }
 
             return "0 seconds ago";
+        }
+
+        private string FormatElapsedTime(int value, string singularUnitName)
+        {
+            return String.Format("{0} {1} ago", value, UnitNamePluralization(value, singularUnitName));
+        }
+
+        private string UnitNamePluralization(int value, string singularUnitName)
+        {
+            return (value == 1) ? singularUnitName : singularUnitName + "s";
         }
     }
 }
