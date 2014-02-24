@@ -12,7 +12,7 @@
             this.consoleWrapper = consoleWrapper;
         }
 
-        public void Start()
+        public void ProcessUserInput()
         {
             var input = this.consoleWrapper.ConsoleRead();
 

@@ -30,19 +30,19 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
-        public void GivenTheUserTypesACommandWhenTheProgramReadsTheCommandThenItInvokesParseOnInputParser()
+        public void GivenTheUserTypesACommandWhenProcessUserInputIsCalledThenItInvokesParseOnInputParser()
         {
             consoleMock.ConsoleRead().Returns("user input");
 
             var program = new Program(consoleMock, parserMock);
 
-            program.Start();
+            program.ProcessUserInput();
 
             parserMock.Received().Parse("user input");
         }
 
         [Test]
-        public void GivenTheUserTypesAPostCommandWhenTheProgramExecutesThenItCallsPostOnMessageBroker()
+        public void GivenTheUserTypesAPostCommandWhenProcessUserInputIsCalledThenPostOnMessageBrokerIsInvokedIndirectely()
         {
             var commandFactory = new CommandFactory(brokerMock);
             var parser = new InputParser(commandFactory);
@@ -51,13 +51,13 @@ namespace ConsoleTwiterTests
 
             var program = new Program(consoleMock, parser);
 
-            program.Start();
+            program.ProcessUserInput();
 
             brokerMock.Received().Post("Bob", "my message");
         }
             
         [Test]
-        public void GivenTheUserTypesAPostCommandWhenTheProgramExecutesThenItCallsPostOnUserWall()
+        public void GivenTheUserTypesAPostCommandWhenProcessUserInputIsCalledThenPostOnUserWallIsInvokedIndirectely()
         {
             var broker = new MessageBroker(repositoryMock);
 
@@ -70,7 +70,7 @@ namespace ConsoleTwiterTests
 
             var program = new Program(consoleMock, parser);
 
-            program.Start();
+            program.ProcessUserInput();
 
             userWallMock.Received().Post("my message");
         }
