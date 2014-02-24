@@ -33,7 +33,7 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenAUserWhenPostsIsCalledThenItCallsPostsOnWall()
         {
-            bob.Post("message");
+            var tmp = bob.Posts;
 
             var temp = userWall.Received().Posts;
         }
