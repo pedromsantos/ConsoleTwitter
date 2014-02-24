@@ -35,6 +35,14 @@ namespace ConsoleTwitter
         {
             this.wall.Post(message);
         }
+
+        public IEnumerable<string> Wall
+        {
+            get 
+            {
+                return this.wall.Wall;
+            }
+        }
     }
 }
 

@@ -74,6 +74,25 @@ namespace ConsoleTwiterTests
 
             userWallMock.Received().Post("my message");
         }
+
+        [Test]
+        public void GivenTheUserTypesAPostCommandWhenProcessUserInputIsCalledThenTheUserWallShouldHavePostedMessage()
+        {
+            var repository = new UserRepository();
+            var broker = new MessageBroker(repository);
+            var commandFactory = new CommandFactory(broker);
+            var parser = new InputParser(commandFactory);
+
+            consoleMock.ConsoleRead().Returns("Bob -> my message");
+
+            var program = new Program(consoleMock, parser);
+
+            program.ProcessUserInput();
+
+            var user = repository.FindByIdentifier("Bob");
+
+            //user.Wall.Should().Contain("my message");
+        }
     }
 }
 

@@ -6,6 +6,8 @@ namespace ConsoleTwitter
     public interface IWall
     {
         void Post(string message);
+
+        IEnumerable<string> Wall { get; }
     }
     
 }

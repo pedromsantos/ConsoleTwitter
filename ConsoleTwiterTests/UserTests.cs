@@ -29,7 +29,7 @@ namespace ConsoleTwiterTests
 
             userWall.Received().Post("message");
         }
-
+            
         [Test]
         public void GivenAUserWhenAddFollowerIsCalledThenItAddsTheFollowerToItsListOfFollowers()
         {

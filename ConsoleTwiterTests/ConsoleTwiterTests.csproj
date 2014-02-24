@@ -40,6 +40,7 @@
     <Compile Include="UserTests.cs" />
     <Compile Include="MessageBrokerTests.cs" />
     <Compile Include="UserRepositoryTests.cs" />
+    <Compile Include="UserWallTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions">
