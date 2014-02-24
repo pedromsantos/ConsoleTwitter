@@ -8,28 +8,30 @@
     [TestFixture]
     public class InputParserTests
     {
+        ICommandFactory factory;
+        InputParser parser;
+
+        [SetUp]
+        public void Setup()
+        {
+            factory = Substitute.For<ICommandFactory>();
+            parser = new InputParser(factory);
+        }
+
         [Test]
         public void GivenAUserInputWhenParseIsCalledThenItCallsCreateCommand()
         {
-            var mokedFactory = Substitute.For<ICommandFactory>();
-            
-            var parser = new InputParser(mokedFactory);
-        
             parser.Parse("user");
         
-            mokedFactory.Received().CreateCommand("user", null, null);
+            factory.Received().CreateCommand("user", null, null);
         }
 
         [Test]
         public void GivenAnInvalidUserInputWhenParseIsCalledThenItCallsCreateCommandSettingAllArgumentsToNull()
         {
-            var mokedFactory = Substitute.For<ICommandFactory>();
-            
-            var parser = new InputParser(mokedFactory);
-        
             parser.Parse(string.Empty);
         
-            mokedFactory.Received().CreateCommand(string.Empty, null, null);
+            factory.Received().CreateCommand(string.Empty, null, null);
         }
 
         [Test]
@@ -37,13 +39,9 @@
         {
             const string UserName = "user";
         
-            var mokedFactory = Substitute.For<ICommandFactory>();
-            
-            var parser = new InputParser(mokedFactory);
-        
             parser.Parse(UserName);
         
-            mokedFactory.Received().CreateCommand("user", null, null);
+            factory.Received().CreateCommand("user", null, null);
         }
 
         [Test]
@@ -51,13 +49,9 @@
         {
             const string Input = "user -> message";
         
-            var mokedFactory = Substitute.For<ICommandFactory>();
-            
-            var parser = new InputParser(mokedFactory);
-        
             parser.Parse(Input);
         
-            mokedFactory.Received().CreateCommand("user", "->", "message");
+            factory.Received().CreateCommand("user", "->", "message");
         }
 
         [Test]
@@ -65,13 +59,9 @@
         {
             const string Input = "Alice follows Bob";
         
-            var mokedFactory = Substitute.For<ICommandFactory>();
-        
-            var parser = new InputParser(mokedFactory);
-            
             parser.Parse(Input);
         
-            mokedFactory.Received().CreateCommand("Alice", "follows", "Bob");
+            factory.Received().CreateCommand("Alice", "follows", "Bob");
         }
 
         [Test]
@@ -79,13 +69,9 @@
         {
             const string Input = "user wall";
         
-            var mokedFactory = Substitute.For<ICommandFactory>();
-        
-            var parser = new InputParser(mokedFactory);
-            
             parser.Parse(Input);
         
-            mokedFactory.Received().CreateCommand("user", "wall", null);
+            factory.Received().CreateCommand("user", "wall", null);
         }
     }
 }

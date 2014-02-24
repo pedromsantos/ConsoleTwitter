@@ -9,11 +9,17 @@ namespace ConsoleTwiterTests
     [TestFixture]
     public class CommandTests
     {
+        private ICommandReceiver receiver;
+
+        [SetUp]
+        public void Setup()
+        {
+            receiver = Substitute.For<ICommandReceiver>();
+        }
+
         [Test]
         public void GivenAReadCommandWhenExecuteMethodIsCalledThenItCallsReadInTheCommandReceiver()
         {
-            var receiver = Substitute.For<ICommandReceiver>();
-
             var command = new ReadCommand(receiver, "Bob");
 
             command.Execute();
@@ -24,8 +30,6 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenAPostCommandWhenExecuteMethodIsCalledThenItCallsPostInTheCommandReceiver()
         {
-            var receiver = Substitute.For<ICommandReceiver>();
-
             var command = new PostCommand(receiver, "Bob", "message");
 
             command.Execute();
@@ -36,8 +40,6 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenAFollowCommandWhenExecuteMethodIsCalledThenItCallsFollowInTheCommandReceiver()
         {
-            var receiver = Substitute.For<ICommandReceiver>();
-
             var command = new FollowCommand(receiver, "Alice", "Bob");
 
             command.Execute();
@@ -48,8 +50,6 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenAWallCommandWhenExecuteMethodIsCalledThenItCallsWallInTheCommandReceiver()
         {
-            var receiver = Substitute.For<ICommandReceiver>();
-
             var command = new WallCommand(receiver, "Bob");
 
             command.Execute();

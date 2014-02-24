@@ -9,13 +9,28 @@ namespace ConsoleTwiterTests
     [TestFixture]
     public class MessageBrokerTests
     {
+        private IRepository repository; 
+        private MessageBroker broker;
+        private IWall userWall;
+        private User bob;
+        private User alice;
+
+        [SetUp]
+        public void SetUp()
+        {
+            repository = Substitute.For<IRepository>(); 
+            userWall = Substitute.For<IWall>();
+
+            broker = new MessageBroker(repository);
+
+            bob = new User("Bob", userWall);
+            alice = new User("Alice", userWall);
+        }
+
         [Test]
         public void GivenACommandReceiverWhenReadIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
-            var repository = Substitute.For<IRepository>(); 
-            var receiver = new MessageBroker(repository);
-
-            receiver.Read("Bob");
+            broker.Read("Bob");
 
             repository.Received().FindByIdentifier("Bob");
         }
@@ -23,10 +38,7 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenACommandReceiverWhenFollowIsExecutedThenItCallsUserRepositoryTwiceToSearchForUserAndUserToFollow()
         {
-            var repository = Substitute.For<IRepository>(); 
-            var receiver = new MessageBroker(repository);
-
-            receiver.Follow("Alice", "Bob");
+            broker.Follow("Alice", "Bob");
 
             repository.Received().FindByIdentifier("Alice");
             repository.Received().FindByIdentifier("Bob");
@@ -35,10 +47,7 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenACommandReceiverWhenWallIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
-            var repository = Substitute.For<IRepository>();
-            var receiver = new MessageBroker(repository);
-
-            receiver.Wall("Bob");
+            broker.Wall("Bob");
 
             repository.Received().FindByIdentifier("Bob");
         }
@@ -46,13 +55,9 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenACommandReceiverWhenPostIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
-            var userWall = Substitute.For<IWall>();
-            var repository = Substitute.For<IRepository>(); 
-            var receiver = new MessageBroker(repository);
+            repository.FindByIdentifier("Bob").Returns(bob);
 
-            repository.FindByIdentifier("Bob").Returns(new User("Bob", userWall));
-
-            receiver.Post("Bob", "message");
+            broker.Post("Bob", "message");
 
             repository.Received().FindByIdentifier("Bob");
         }
@@ -60,13 +65,9 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenACommandReceiverAndThatTheUserPostingIsNotInTheSystemWhenPostIsExecutedThenItCallsRepositoryCreate()
         {
-            var userWall = Substitute.For<IWall>();
-            var repository = Substitute.For<IRepository>(); 
-            var receiver = new MessageBroker(repository);
-
             repository.Create("Bob").Returns(new User("Bob", userWall));
 
-            receiver.Post("Bob", "message");
+            broker.Post("Bob", "message");
 
             repository.Received().Create("Bob");
         }
@@ -74,13 +75,9 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenACommandReceiverWhenPostIsExecutedThenCallsPostOnUserWall()
         {
-            var userWall = Substitute.For<IWall>();
-            var repository = Substitute.For<IRepository>(); 
-            var receiver = new MessageBroker(repository);
+            repository.FindByIdentifier("Bob").Returns(bob);
 
-            repository.FindByIdentifier("Bob").Returns(new User("Bob", userWall));
-
-            receiver.Post("Bob", "message");
+            broker.Post("Bob", "message");
 
             userWall.Received().Post("message");
         }
@@ -88,18 +85,12 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenACommandReceiverWhenPostIsExecutedThenCallsPostOnUserFollowers()
         {
-            var userWall = Substitute.For<IWall>();
-            var repository = Substitute.For<IRepository>(); 
-            var receiver = new MessageBroker(repository);
-
-            var bob = new User("Bob", userWall);
-            var alice = new User("Alice", userWall);
             bob.AddFollower(alice);
 
             repository.FindByIdentifier("Bob").Returns(bob);
             repository.FindByIdentifier("Alice").Returns(alice);
 
-            receiver.Post("Bob", "message");
+            broker.Post("Bob", "message");
 
             userWall.Received(2).Post("message");
         }

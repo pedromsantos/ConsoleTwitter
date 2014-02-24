@@ -10,12 +10,21 @@ namespace ConsoleTwiterTests
     [TestFixture]
     public class UserTests
     {
+        private IWall userWall;
+        private User bob;
+        private User alice;
+
+        [SetUp]
+        public void Setup()
+        {
+            userWall = Substitute.For<IWall>();
+            bob = new User("Bob", userWall);
+            alice = new User("Alice", userWall);
+        }
+
         [Test]
         public void GivenAUserWhenPostIsCalledThenItCallsPostOnWall()
         {
-            var userWall = Substitute.For<IWall>();
-            var bob = new User("Bob", userWall);
-
             bob.Post("message");
 
             userWall.Received().Post("message");
@@ -24,10 +33,6 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenAUserWhenAddFollowerIsCalledThenItAddsTheFollowerToItsListOfFollowers()
         {
-            var userWall = Substitute.For<IWall>();
-            var bob = new User("Bob", userWall);
-            var alice = new User("Alice", userWall);
-
             bob.AddFollower(alice);
 
             bob.Followers.Should().Contain(alice);

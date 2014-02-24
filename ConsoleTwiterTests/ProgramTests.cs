@@ -12,16 +12,16 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenTheUserTypesACommandWhenTheProgramReadsTheCommandThenItInvokesParseOnInputParser()
         {
-            var consoleMock = Substitute.For<IConsole>();
-            var parserMock = Substitute.For<IInputParser>();
+            var console = Substitute.For<IConsole>();
+            var parser = Substitute.For<IInputParser>();
 
-            consoleMock.ConsoleRead().Returns("user input");
+            console.ConsoleRead().Returns("user input");
 
-            var program = new Program(consoleMock, parserMock);
+            var program = new Program(console, parser);
 
             program.Start();
 
-            parserMock.Received().Parse("user input");
+            parser.Received().Parse("user input");
         }
     }
 }
