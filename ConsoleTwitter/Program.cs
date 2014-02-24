@@ -43,7 +43,18 @@ namespace ConsoleTwitter
             
         public static void Main()
         {
+            var repository = new UserRepository();
+            var broker = new MessageBroker(repository);
+            var commandFactory = new CommandFactory(broker);
+            var parser = new InputParser(commandFactory);
 
+            var formaterFactory = new MessageFormaterFactory();
+            var consoleWrapper = new ConsoleWrapper();
+
+            var program = new Program(consoleWrapper, parser, formaterFactory);
+
+            while (program.ProcessUserInput() != false)
+                ;
         }
     }
 }
