@@ -217,6 +217,35 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
+        [Category("Integration")]
+        public void GivenCharlieAndAliceAreUsersInTheSystemAndCharlieFollowsAliceWhenAWallCommandOnCharlieIsRequestedThenItDisplayCharliesWallStatingTheAuthorOfThePosts()
+        {
+            var repository = new UserRepository();
+            var broker = new MessageBroker(repository);
+            var commandFactory = new CommandFactory(broker);
+            var parser = new InputParser(commandFactory);
+
+            var charlie = repository.Create("charlie");
+            var alice = repository.Create("alice");
+
+            var program = new Program(consoleMock, parser, formater);
+
+            consoleMock.ConsoleRead().Returns("charlie follows alice");
+            program.ProcessUserInput();
+
+            consoleMock.ConsoleRead().Returns("charlie -> message from charlie");
+            program.ProcessUserInput();
+
+            consoleMock.ConsoleRead().Returns("alice -> message from alice");
+            program.ProcessUserInput();
+
+            consoleMock.ConsoleRead().Returns("charlie wall");
+            program.ProcessUserInput();
+
+            charlie.Wall.All(p => p.Body.StartsWith(charlie.UserHandle) || p.Body.StartsWith(alice.UserHandle)).Should().BeTrue();
+        }
+
+        [Test]
         public void GivenTheUserTypesAnInvalidInputWhenProcessUserInputIsCalledThenItDoesNotExecuteCommand()
         {
             var program = new Program(consoleMock, parserMock, formaterMock);

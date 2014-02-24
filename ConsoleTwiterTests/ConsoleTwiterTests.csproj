@@ -43,6 +43,8 @@
     <Compile Include="Commands\CommandFactoryTests.cs" />
     <Compile Include="Users\UserRepositoryTests.cs" />
     <Compile Include="Users\UserTests.cs" />
+    <Compile Include="Messages\WallMessageFormaterTests.cs" />
+    <Compile Include="Messages\MessageFormaterFactoryTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions">

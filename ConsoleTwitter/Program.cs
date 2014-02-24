@@ -2,6 +2,7 @@
 
 namespace ConsoleTwitter
 {
+
     public class Program
     {
         private IConsole consoleWrapper;

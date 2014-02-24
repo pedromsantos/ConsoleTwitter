@@ -9,7 +9,7 @@ namespace ConsoleTwitter
         {
         }
 
-        public override void Execute ()
+        public override void Execute()
         {
             this.Results = this.broker.Read(User);
         }

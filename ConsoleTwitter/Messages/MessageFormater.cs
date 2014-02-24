@@ -4,7 +4,7 @@ namespace ConsoleTwitter
 {
     public class MessageFormater : IMessageFormater
     {
-        IMessageFormater elapsedTimeFormater;
+        private IMessageFormater elapsedTimeFormater;
 
         public MessageFormater(ElapsedTimeMessageFormater messageFormater)
         {

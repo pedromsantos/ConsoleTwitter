@@ -63,6 +63,8 @@
     <Compile Include="Users\IUser.cs" />
     <Compile Include="Messages\MessageFormater.cs" />
     <Compile Include="Messages\ElapsedTimeMessageFormater.cs" />
+    <Compile Include="Messages\WallMessageFormater.cs" />
+    <Compile Include="Messages\MessageFormaterFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
