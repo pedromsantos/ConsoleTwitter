@@ -3,6 +3,7 @@
 using NUnit.Framework;
 using NSubstitute;
 using ConsoleTwitter;
+using FluentAssertions;
 
 namespace ConsoleTwiterTests
 {
@@ -42,6 +43,7 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
+        [Category("Integration")]
         public void GivenTheUserTypesAPostCommandWhenProcessUserInputIsCalledThenPostOnMessageBrokerIsInvokedIndirectely()
         {
             var commandFactory = new CommandFactory(brokerMock);
@@ -57,6 +59,7 @@ namespace ConsoleTwiterTests
         }
             
         [Test]
+        [Category("Integration")]
         public void GivenTheUserTypesAPostCommandWhenProcessUserInputIsCalledThenPostOnUserWallIsInvokedIndirectely()
         {
             var broker = new MessageBroker(repositoryMock);
@@ -76,7 +79,8 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
-        public void GivenTheUserTypesAPostCommandWhenProcessUserInputIsCalledThenTheUserWallShouldHavePostedMessage()
+        [Category("Integration")]
+        public void GivenTheUserTypesAPostCommandWhenProcessUserInputIsCalledThenTheUserWallShouldContainPostedMessage()
         {
             var repository = new UserRepository();
             var broker = new MessageBroker(repository);
@@ -91,7 +95,7 @@ namespace ConsoleTwiterTests
 
             var user = repository.FindByIdentifier("Bob");
 
-            //user.Wall.Should().Contain("my message");
+            user.Wall.Should().Contain("my message");
         }
     }
 }
