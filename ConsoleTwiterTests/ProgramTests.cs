@@ -118,6 +118,21 @@ namespace ConsoleTwiterTests
 
             consoleMock.Received().ConsoleWrite("message from charlie");
         }
+
+        [Test]
+        public void GivenTheUserTypesAnInvalidInputWhenProcessUserInputIsCalledThenItDoesNotExecuteCommand()
+        {
+            var program = new Program(consoleMock, parserMock);
+
+            consoleMock.ConsoleRead().Returns("");
+
+            var command = new NullCommand();
+            parserMock.Parse("").Returns(command);
+
+            Action action = () => program.ProcessUserInput();
+
+            action.ShouldNotThrow();
+        }
     }
 }
 

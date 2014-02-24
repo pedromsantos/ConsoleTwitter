@@ -14,11 +14,16 @@ namespace ConsoleTwitter
             this.consoleWrapper = consoleWrapper;
         }
 
-        public void ProcessUserInput()
+        public bool ProcessUserInput()
         {
             var input = this.consoleWrapper.ConsoleRead();
 
             var command = this.parser.Parse(input);
+
+            if (command is NullCommand)
+            {
+                return false;
+            }
 
             command.Execute();
 
@@ -26,6 +31,8 @@ namespace ConsoleTwitter
             {
                 ((IQueryCommand)command).Results.ToList().ForEach(r => this.consoleWrapper.ConsoleWrite(r));
             }
+
+            return true;
         }
             
         public static void Main()
