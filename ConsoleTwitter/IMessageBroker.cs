@@ -9,7 +9,7 @@ namespace ConsoleTwitter
 
         void Post(string user, string message);
 
-        IEnumerable<string> Read(string user);
+        IEnumerable<Message> Read(string user);
 
         void Wall(string bob);
     }

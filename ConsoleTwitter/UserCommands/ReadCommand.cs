@@ -14,6 +14,6 @@ namespace ConsoleTwitter
             this.Results = this.broker.Read(User);
         }
 
-        public IEnumerable<string> Results { get; private set; }
+        public IEnumerable<Message> Results { get; private set; }
     }
 }

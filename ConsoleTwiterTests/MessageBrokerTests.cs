@@ -45,7 +45,7 @@ namespace ConsoleTwiterTests
 
             broker.Read("Bob");
 
-            var temp = userWall.Received().Posts;
+            userWall.Received().Posts(bob);
         }
 
         [Test]
@@ -100,7 +100,7 @@ namespace ConsoleTwiterTests
 
             broker.Post("Bob", "message");
 
-            userWall.Received().Post("message");
+            userWall.Received().Post(bob, "message");
         }
 
         [Test]
@@ -113,7 +113,8 @@ namespace ConsoleTwiterTests
 
             broker.Post("Bob", "message");
 
-            userWall.Received(2).Post("message");
+            userWall.Received().Post(bob, "message");
+            userWall.Received().Post(alice, "message");
         }
     }
 }

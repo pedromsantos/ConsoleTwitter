@@ -29,7 +29,7 @@ namespace ConsoleTwitter
 
             if (command is IQueryCommand)
             {
-                ((IQueryCommand)command).Results.ToList().ForEach(r => this.consoleWrapper.ConsoleWrite(r));
+                ((IQueryCommand)command).Results.ToList().ForEach(r => this.consoleWrapper.ConsoleWrite(r.Body));
             }
 
             return true;

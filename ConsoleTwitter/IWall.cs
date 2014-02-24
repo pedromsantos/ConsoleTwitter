@@ -7,9 +7,11 @@ namespace ConsoleTwitter
     {
         void Post(string message);
 
-        IEnumerable<string> Wall { get; }
+        void Post(User user, string message);
 
-        IEnumerable<string> Posts { get; }
+        IEnumerable<Message> Wall { get; }
+
+        IEnumerable<Message> Posts(User user);
     }
     
 }

@@ -5,6 +5,6 @@ namespace ConsoleTwitter
 
     public interface IQueryCommand : ICommand
     {
-        IEnumerable<string> Results { get; }
+        IEnumerable<Message> Results { get; }
     }
 }

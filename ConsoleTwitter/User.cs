@@ -33,10 +33,15 @@ namespace ConsoleTwitter
 
         public void Post(string message)
         {
-            this.wall.Post(message);
+            this.wall.Post(this, message);
         }
 
-        public IEnumerable<string> Wall
+        public void Post(User user, string message)
+        {
+            this.wall.Post(user, message);
+        }
+
+        public IEnumerable<Message> Wall
         {
             get 
             {
@@ -44,12 +49,9 @@ namespace ConsoleTwitter
             }
         }
 
-        public IEnumerable<string> Posts
+        public IEnumerable<Message> Posts(User user = null)
         {
-            get 
-            {
-                return this.wall.Posts;
-            }
+            return this.wall.Posts(this); 
         }
     }
 }

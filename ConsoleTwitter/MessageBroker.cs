@@ -34,16 +34,16 @@ namespace ConsoleTwitter
             user.Followers.ToList().ForEach(u => u.Post(message));
         }
 
-        public IEnumerable<string> Read(string userHandle)
+        public IEnumerable<Message> Read(string userHandle)
         {
             var user = this.FindUserByHandle(userHandle);
 
             if (user == null)
             {
-                return new Collection<string> { };
+                return new Collection<Message> { };
             }
 
-            return user.Posts;
+            return user.Posts();
         }
 
         public void Wall(string userHandle)

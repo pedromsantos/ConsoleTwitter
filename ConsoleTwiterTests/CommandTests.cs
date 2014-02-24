@@ -33,11 +33,11 @@ namespace ConsoleTwiterTests
         {
             var command = new ReadCommand(receiver, "Bob");
 
-            receiver.Read("Bob").Returns(new [] { "message" });
+            receiver.Read("Bob").Returns(new [] { new Message(null, "message") });
 
             command.Execute();
 
-            ((IQueryCommand)command).Results.Should().Contain("message");
+            ((IQueryCommand)command).Results.Should().Contain(m => m.Body == "message");
         }
 
         [Test]

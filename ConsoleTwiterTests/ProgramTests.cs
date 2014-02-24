@@ -75,7 +75,7 @@ namespace ConsoleTwiterTests
 
             program.ProcessUserInput();
 
-            userWallMock.Received().Post("my message");
+            userWallMock.Received().Post(bob, "my message");
         }
             
         [Test]
@@ -95,7 +95,7 @@ namespace ConsoleTwiterTests
 
             var user = repository.FindByIdentifier("Bob");
 
-            user.Wall.Should().Contain("my message");
+            user.Wall.Should().Contain(m => m.Body == "my message");
         }
 
         [Test]
@@ -120,14 +120,34 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
+        [Category("Integration")]
+        public void GivenAliceWantsToReadCharliesWallAndCharlieHasMessagesOnHisWallWhenProcessUserInputIsCalledThenTheProgramDisplaysCharliesWallMessagesAndHowLongHasCharliePostedEachMessage()
+        {
+            var repository = new UserRepository();
+            var broker = new MessageBroker(repository);
+            var commandFactory = new CommandFactory(broker);
+            var parser = new InputParser(commandFactory);
+
+            var charlie = repository.Create("charlie");
+            ((IWall)charlie).Post("message from charlie");
+
+            consoleMock.ConsoleRead().Returns("charlie");
+
+            var program = new Program(consoleMock, parser);
+
+            program.ProcessUserInput();
+
+            consoleMock.Received().ConsoleWrite("message from charlie (0 seconds ago)");
+        }
+
+        [Test]
         public void GivenTheUserTypesAnInvalidInputWhenProcessUserInputIsCalledThenItDoesNotExecuteCommand()
         {
             var program = new Program(consoleMock, parserMock);
 
             consoleMock.ConsoleRead().Returns("");
 
-            var command = new NullCommand();
-            parserMock.Parse("").Returns(command);
+            parserMock.Parse(Arg.Any<string>()).Returns(new NullCommand());
 
             Action action = () => program.ProcessUserInput();
 

@@ -6,19 +6,24 @@ namespace ConsoleTwitter
 {
     public class UserWall : IWall
     {
-        private readonly IList<string> internalMessages;
+        private readonly IList<Message> internalMessages;
 
         public UserWall()
         {
-            internalMessages = new List<string>();
-        }
-            
-        public void Post(string message)
-        {
-            internalMessages.Add(message);
+            internalMessages = new List<Message>();
         }
 
-        public IEnumerable<string> Wall
+        public void Post(string message)
+        {
+            internalMessages.Add(new Message(null, message));
+        }
+
+        public void Post(User user, string message)
+        {
+            internalMessages.Add(new Message(user, message));
+        }
+
+        public IEnumerable<Message> Wall
         {
             get 
             {
@@ -26,12 +31,9 @@ namespace ConsoleTwitter
             }
         }
 
-        public IEnumerable<string> Posts
+        public IEnumerable<Message> Posts(User user)
         {
-            get
-            {
-                return internalMessages.Skip(0);
-            }
+            return internalMessages.Where(m => m.User.UserHandle == user.UserHandle);
         }
     }
 }

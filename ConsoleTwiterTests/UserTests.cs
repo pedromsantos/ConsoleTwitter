@@ -27,15 +27,15 @@ namespace ConsoleTwiterTests
         {
             bob.Post("message");
 
-            userWall.Received().Post("message");
+            userWall.Received().Post(Arg.Any<User>(), Arg.Any<string>());
         }
 
         [Test]
         public void GivenAUserWhenPostsIsCalledThenItCallsPostsOnWall()
         {
-            var tmp = bob.Posts;
+            bob.Posts();
 
-            var temp = userWall.Received().Posts;
+            userWall.Received().Posts(bob);
         }
             
         [Test]
