@@ -33,15 +33,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CommandFactoryTests.cs" />
     <Compile Include="InputParserTests.cs" />
     <Compile Include="ProgramTests.cs" />
-    <Compile Include="CommandTests.cs" />
-    <Compile Include="UserTests.cs" />
     <Compile Include="MessageBrokerTests.cs" />
-    <Compile Include="UserRepositoryTests.cs" />
-    <Compile Include="UserWallTests.cs" />
-    <Compile Include="MessageFormaterTests.cs" />
+    <Compile Include="Commands\CommandTests.cs" />
+    <Compile Include="Messages\ElapsedTimeMessageFormaterTests.cs" />
+    <Compile Include="Messages\MessageFormaterTests.cs" />
+    <Compile Include="Users\UserWallTests.cs" />
+    <Compile Include="Commands\CommandFactoryTests.cs" />
+    <Compile Include="Users\UserRepositoryTests.cs" />
+    <Compile Include="Users\UserTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="FluentAssertions">
@@ -84,4 +85,9 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
+  <ItemGroup>
+    <Folder Include="Commands\" />
+    <Folder Include="Messages\" />
+    <Folder Include="Users\" />
+  </ItemGroup>
 </Project>

@@ -4,11 +4,10 @@ using NUnit.Framework;
 using ConsoleTwitter;
 using FluentAssertions;
 
-
 namespace ConsoleTwiterTests
 {
     [TestFixture]
-    public class MessageFormaterTests
+    public class ElapsedTimeMessageFormaterTests
     {
         private IMessageFormater formater;
         private Message message;
@@ -21,7 +20,7 @@ namespace ConsoleTwiterTests
             var userWall = new UserWall();
             var bob = new User("Bob", userWall);
             message = new Message(bob, "Bob's message");
-            formater = new MessageFormater(new ElapsedTimeMessageFormater());
+            formater = new ElapsedTimeMessageFormater();
         }
 
         [Test]
@@ -29,7 +28,7 @@ namespace ConsoleTwiterTests
         {
             var formatedMessage = formater.Format(message);
 
-            formatedMessage.Should().Be("Bob's message (0 seconds ago)");
+            formatedMessage.Should().Be("0 seconds ago");
         }
 
         [Test]
@@ -39,7 +38,7 @@ namespace ConsoleTwiterTests
 
             var formatedMessage = formater.Format(message);
 
-            formatedMessage.Should().Be("Bob's message (5 seconds ago)");
+            formatedMessage.Should().Be("5 seconds ago");
         }
 
         [Test]
@@ -49,7 +48,7 @@ namespace ConsoleTwiterTests
 
             var formatedMessage = formater.Format(message);
 
-            formatedMessage.Should().Be("Bob's message (1 second ago)");
+            formatedMessage.Should().Be("1 second ago");
         }
 
         [Test]
@@ -59,7 +58,7 @@ namespace ConsoleTwiterTests
 
             var formatedMessage = formater.Format(message);
 
-            formatedMessage.Should().Be("Bob's message (1 minute ago)");
+            formatedMessage.Should().Be("1 minute ago");
         }
 
         [Test]
@@ -69,7 +68,7 @@ namespace ConsoleTwiterTests
 
             var formatedMessage = formater.Format(message);
 
-            formatedMessage.Should().Be("Bob's message (5 minutes ago)");
+            formatedMessage.Should().Be("5 minutes ago");
         }
 
         [Test]
@@ -79,7 +78,7 @@ namespace ConsoleTwiterTests
 
             var formatedMessage = formater.Format(message);
 
-            formatedMessage.Should().Be("Bob's message (1 hour ago)");
+            formatedMessage.Should().Be("1 hour ago");
         }
 
         [Test]
@@ -89,7 +88,7 @@ namespace ConsoleTwiterTests
 
             var formatedMessage = formater.Format(message);
 
-            formatedMessage.Should().Be("Bob's message (5 hours ago)");
+            formatedMessage.Should().Be("5 hours ago");
         }
 
         [Test]
@@ -99,7 +98,7 @@ namespace ConsoleTwiterTests
 
             var formatedMessage = formater.Format(message);
 
-            formatedMessage.Should().Be("Bob's message (1 month ago)");
+            formatedMessage.Should().Be("1 month ago");
         }
 
         [Test]
@@ -109,7 +108,7 @@ namespace ConsoleTwiterTests
 
             var formatedMessage = formater.Format(message);
 
-            formatedMessage.Should().Be("Bob's message (5 months ago)");
+            formatedMessage.Should().Be("5 months ago");
         }
 
         [Test]
@@ -119,7 +118,7 @@ namespace ConsoleTwiterTests
 
             var formatedMessage = formater.Format(message);
 
-            formatedMessage.Should().Be("Bob's message (1 year ago)");
+            formatedMessage.Should().Be("1 year ago");
         }
 
         [Test]
@@ -129,7 +128,7 @@ namespace ConsoleTwiterTests
 
             var formatedMessage = formater.Format(message);
 
-            formatedMessage.Should().Be("Bob's message (5 years ago)");
+            formatedMessage.Should().Be("5 years ago");
         }
     }
 }
