@@ -10,38 +10,36 @@ namespace ConsoleTwiterTests
     [TestFixture]
     public class UserRepositoryTests
     {
+        IRepository repository;
+        User bob;
+
+        [SetUp]
+        public void Setup()
+        {
+            repository = new UserRepository();
+            bob = repository.Create("Bob");
+        }
+
         [Test]
         public void GivenAnEmptyRepositoryWhenCreateIsCalledThenItCreatesANewUser()
         {
-            var repository = new UserRepository();
-
-            var bob = repository.Create("Bob");
-
             bob.UserHandle.Should().Be("Bob");
         }
 
         [Test]
         public void GivenARepositoryWithAliceAndBobWhenFindByIdentifierIsCalledUsingBobsHandleThenBobsUserIsReturned()
         {
-            var repository = new UserRepository();
+            var user = repository.FindByIdentifier("Bob");
 
-            repository.Create("Bob");
-
-            var bob = repository.FindByIdentifier("Bob");
-
-            bob.UserHandle.Should().Be("Bob");
+            user.UserHandle.Should().Be("Bob");
         }
 
         [Test]
         public void GivenARepositoryWithBobAsUserWhenCreateIsCalledForBobThenItDoesNotCreateANewUser()
         {
-            var repository = new UserRepository();
-
             repository.Create("Bob");
 
-            repository.Create("Bob");
-
-            repository.Users.Count().Should().Be(1);
+            ((UserRepository)repository).Users.Count().Should().Be(1);
         }
     }
 }
