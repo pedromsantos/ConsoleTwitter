@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace ConsoleTwitter
 {
     using System.Linq;
@@ -8,14 +10,14 @@ namespace ConsoleTwitter
         private const string WallToken = "wall";
         private const string PostToken = "->";
 
-        private ICommandReceiver receiver;
+        private IMessageBroker receiver;
 
-        public CommandFactory(ICommandReceiver receiver)
+        public CommandFactory(IMessageBroker receiver)
         {
             this.receiver = receiver;
         }
 
-        public virtual ICommand CreateCommand(string userName, string action, string argument)
+        public virtual ICommand CreateCommand(string userName, string action, IEnumerable<string> arguments)
         {
             if (string.IsNullOrEmpty(userName))
             {
@@ -24,22 +26,22 @@ namespace ConsoleTwitter
 
             action = action == null ? null : action.ToLower();
 
-            return CreateActionCommand(userName, action, argument);
+            return CreateActionCommand(userName, action, arguments);
         }
 
-        protected virtual ICommand CreateActionCommand(string userName, string action, string argument)
+        protected virtual ICommand CreateActionCommand(string userName, string action, IEnumerable<string> arguments)
         {
             switch (action)
             {
                 case null:
                 case "":
-                return new ReadCommand(this.receiver, userName);
+                    return new ReadCommand(this.receiver, userName);
                 case WallToken:
-                return new WallCommand(this.receiver, userName);
+                    return new WallCommand(this.receiver, userName);
                 case FollowToken:
-                return new FollowCommand(this.receiver, userName, argument);
+                    return new FollowCommand(this.receiver, userName, arguments.First());
                 case PostToken:
-                return new PostCommand(this.receiver, userName, argument);
+                    return new PostCommand(this.receiver, userName, string.Join(" ", arguments));
                 default:
                     return new NullCommand();
             }

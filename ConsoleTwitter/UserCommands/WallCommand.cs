@@ -2,7 +2,7 @@
 {
     public class WallCommand : Command
     {
-        public WallCommand(ICommandReceiver receiver, string userName)
+        public WallCommand(IMessageBroker receiver, string userName)
             : base(receiver, userName)
         {
         }

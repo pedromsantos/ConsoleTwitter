@@ -48,11 +48,11 @@
     <Compile Include="UserCommands\WallCommand.cs" />
     <Compile Include="IConsole.cs" />
     <Compile Include="IInputParser.cs" />
-    <Compile Include="ICommandReceiver.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="User.cs" />
     <Compile Include="IWall.cs" />
     <Compile Include="MessageBroker.cs" />
+    <Compile Include="IMessageBroker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

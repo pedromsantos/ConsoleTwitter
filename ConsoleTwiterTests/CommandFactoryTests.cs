@@ -8,13 +8,13 @@
     [TestFixture]
     public class CommandFactoryTests
     {
-        private ICommandReceiver receiver;
+        private IMessageBroker receiver;
         private CommandFactory factory;
 
         [SetUp]
         public void Setup()
         {
-            receiver = Substitute.For<ICommandReceiver>();
+            receiver = Substitute.For<IMessageBroker>();
 
             factory = new CommandFactory(receiver);
         }
@@ -48,7 +48,7 @@
         [Test]
         public void GivenAUsernameAndAMessageWhenCreateCommandIsCalledThenItCreatesAPostCommandForTheAction()
         {
-            var command = factory.CreateCommand("user", "->", "message");
+            var command = factory.CreateCommand("user", "->", new[] { "message" });
         
             command.Should ().BeAssignableTo<PostCommand> ();
         }
@@ -56,7 +56,7 @@
         [Test]
         public void GivenAUsernameAPostActionAndAMessageWhenCreateCommandIsCalledThenItCreatesAPostCommandAssigningTheMessageToTheCommand()
         {
-            var command = (PostCommand)factory.CreateCommand("user", "->" , "message");
+            var command = (PostCommand)factory.CreateCommand("user", "->" , new[] { "message" });
         
             command.Message.Should().Be ("message");
         }
@@ -74,7 +74,7 @@
         [Test]
         public void GivenAUsernameAFollowActionAndAUserToFollowWhenCreateCommandIsCalledThenItCreatesAFollowCommandForTheAction()
         {
-            var command = (FollowCommand)factory.CreateCommand("user", "follows", "user");
+            var command = (FollowCommand)factory.CreateCommand("user", "follows", new [] { "user" });
         
             command.Should ().BeAssignableTo<FollowCommand> ();
         }
@@ -82,7 +82,7 @@
         [Test]
         public void GivenAUsernameAFollowActionAndAUserToFollowWhenCreateCommandIsCalledThenItCreatesFollowCommandAssigningTheserToFollowToTheCommand()
         {
-            var command = (FollowCommand)factory.CreateCommand("Alice", "follows", "Bob");
+            var command = (FollowCommand)factory.CreateCommand("Alice", "follows", new [] { "Bob" });
         
             command.UserToFollow.Should ().Be ("Bob");
         }

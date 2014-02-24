@@ -9,12 +9,12 @@ namespace ConsoleTwiterTests
     [TestFixture]
     public class CommandTests
     {
-        private ICommandReceiver receiver;
+        private IMessageBroker receiver;
 
         [SetUp]
         public void Setup()
         {
-            receiver = Substitute.For<ICommandReceiver>();
+            receiver = Substitute.For<IMessageBroker>();
         }
 
         [Test]

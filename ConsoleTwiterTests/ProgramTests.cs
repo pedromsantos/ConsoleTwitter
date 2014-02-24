@@ -23,6 +23,24 @@ namespace ConsoleTwiterTests
 
             parser.Received().Parse("user input");
         }
+
+        [Test]
+        public void GivenTheUserTypesAPostCommandWhenTheProgramExecutesThenItCallsPostOnMessageBroker()
+        {
+            var console = Substitute.For<IConsole>();
+            var broker = Substitute.For<IMessageBroker>();
+
+            var commandFactory = new CommandFactory(broker);
+            var parser = new InputParser(commandFactory);
+
+            console.ConsoleRead().Returns("Bob -> my message");
+
+            var program = new Program(console, parser);
+
+            program.Start();
+
+            broker.Received().Post("Bob", "my message");
+        }
     }
 }
 

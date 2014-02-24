@@ -2,7 +2,7 @@
 {
     public class ReadCommand : Command
     {
-        public ReadCommand(ICommandReceiver receiver, string userName)
+        public ReadCommand(IMessageBroker receiver, string userName)
             : base(receiver, userName)
         {
         }

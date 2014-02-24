@@ -28,7 +28,7 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
-        public void GivenACommandReceiverWhenReadIsExecutedThenItCallsUserRepositoryToSearchForUser()
+        public void GivenAMessageBrokerWhenReadIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
             broker.Read("Bob");
 
@@ -36,7 +36,7 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
-        public void GivenACommandReceiverWhenFollowIsExecutedThenItCallsUserRepositoryTwiceToSearchForUserAndUserToFollow()
+        public void GivenAMessageBrokerWhenFollowIsExecutedThenItCallsUserRepositoryTwiceToSearchForUserAndUserToFollow()
         {
             broker.Follow("Alice", "Bob");
 
@@ -45,7 +45,7 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
-        public void GivenACommandReceiverWhenWallIsExecutedThenItCallsUserRepositoryToSearchForUser()
+        public void GivenAMessageBrokerWhenWallIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
             broker.Wall("Bob");
 
@@ -53,7 +53,7 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
-        public void GivenACommandReceiverWhenPostIsExecutedThenItCallsUserRepositoryToSearchForUser()
+        public void GivenAMessageBrokerWhenPostIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
             repository.FindByIdentifier("Bob").Returns(bob);
 
@@ -63,7 +63,7 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
-        public void GivenACommandReceiverAndThatTheUserPostingIsNotInTheSystemWhenPostIsExecutedThenItCallsRepositoryCreate()
+        public void GivenAMessageBrokerAndThatTheUserPostingIsNotInTheSystemWhenPostIsExecutedThenItCallsRepositoryCreate()
         {
             repository.Create("Bob").Returns(new User("Bob", userWall));
 
@@ -73,7 +73,7 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
-        public void GivenACommandReceiverWhenPostIsExecutedThenCallsPostOnUserWall()
+        public void GivenAMessageBrokerWhenPostIsExecutedThenCallsPostOnUserWall()
         {
             repository.FindByIdentifier("Bob").Returns(bob);
 
@@ -83,7 +83,7 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
-        public void GivenACommandReceiverWhenPostIsExecutedThenCallsPostOnUserFollowers()
+        public void GivenAMessageBrokerWhenPostIsExecutedThenCallsPostOnUserFollowers()
         {
             bob.AddFollower(alice);
 

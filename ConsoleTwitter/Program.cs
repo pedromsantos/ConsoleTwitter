@@ -16,7 +16,9 @@
         {
             var input = this.consoleWrapper.ConsoleRead();
 
-            this.parser.Parse(input);
+            var comand = this.parser.Parse(input);
+
+            comand.Execute();
         }
             
         public static void Main()

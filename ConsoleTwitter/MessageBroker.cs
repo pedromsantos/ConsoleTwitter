@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace ConsoleTwitter
 {
-    public class MessageBroker : ICommandReceiver
+    public class MessageBroker : IMessageBroker
     {
         IRepository repository;
 

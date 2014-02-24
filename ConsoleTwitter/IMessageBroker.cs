@@ -2,7 +2,7 @@
 
 namespace ConsoleTwitter
 {
-    public interface ICommandReceiver
+    public interface IMessageBroker
     {
         void Follow(string user, string userToFollow);
 

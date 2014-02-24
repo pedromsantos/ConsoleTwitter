@@ -2,7 +2,7 @@
 {
     public class FollowCommand : Command
     {
-        public FollowCommand(ICommandReceiver receiver, string userName, string userToFollow)
+        public FollowCommand(IMessageBroker receiver, string userName, string userToFollow)
             : base(receiver, userName)
         {
             this.UserToFollow = userToFollow;

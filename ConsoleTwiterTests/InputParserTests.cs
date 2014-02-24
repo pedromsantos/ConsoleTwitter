@@ -1,4 +1,7 @@
-﻿namespace ConsoleTwiterTests
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace ConsoleTwiterTests
 {
     using ConsoleTwitter;
     using FluentAssertions;
@@ -23,7 +26,7 @@
         {
             parser.Parse("user");
         
-            factory.Received().CreateCommand("user", null, null);
+            factory.Received().CreateCommand("user", null, Arg.Is<IEnumerable<string>>(users => !users.Any()));
         }
 
         [Test]
@@ -31,7 +34,7 @@
         {
             parser.Parse(string.Empty);
         
-            factory.Received().CreateCommand(string.Empty, null, null);
+            factory.Received().CreateCommand(string.Empty, null, Arg.Is<IEnumerable<string>>(users => !users.Any()));
         }
 
         [Test]
@@ -41,7 +44,7 @@
         
             parser.Parse(UserName);
         
-            factory.Received().CreateCommand("user", null, null);
+            factory.Received().CreateCommand("user", null, Arg.Is<IEnumerable<string>>(users => !users.Any()));
         }
 
         [Test]
@@ -51,7 +54,7 @@
         
             parser.Parse(Input);
         
-            factory.Received().CreateCommand("user", "->", "message");
+            factory.Received().CreateCommand("user", "->", Arg.Is<IEnumerable<string>>(messages => messages.All(message => message == "message")));
         }
 
         [Test]
@@ -61,7 +64,7 @@
         
             parser.Parse(Input);
         
-            factory.Received().CreateCommand("Alice", "follows", "Bob");
+            factory.Received().CreateCommand("Alice", "follows", Arg.Is<IEnumerable<string>>(users => users.All(user => user == "Bob")));
         }
 
         [Test]
@@ -71,7 +74,7 @@
         
             parser.Parse(Input);
         
-            factory.Received().CreateCommand("user", "wall", null);
+            factory.Received().CreateCommand("user", "wall", Arg.Is<IEnumerable<string>>(users => !users.Any()));
         }
     }
 }

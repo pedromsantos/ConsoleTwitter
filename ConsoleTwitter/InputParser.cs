@@ -22,7 +22,7 @@
 
             var userName = tokenizedInput.First();
             var action = tokenizedInput.Skip(UserTokenPosition).FirstOrDefault();
-            var argument = tokenizedInput.Skip(ActionTokenPosition).FirstOrDefault();
+            var argument = tokenizedInput.Skip(ActionTokenPosition);
             
             return this.commandFactory.CreateCommand(userName, action, argument);
         }

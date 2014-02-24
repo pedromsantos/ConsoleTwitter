@@ -2,7 +2,7 @@
 {
     public class PostCommand : Command
     {
-        public PostCommand(ICommandReceiver receiver, string userName, string message)
+        public PostCommand(IMessageBroker receiver, string userName, string message)
             : base(receiver, userName)
         {
             this.Message = message;

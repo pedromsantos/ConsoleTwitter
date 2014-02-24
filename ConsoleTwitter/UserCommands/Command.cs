@@ -2,9 +2,9 @@
 {
     public abstract class Command : ICommand
     {
-        protected ICommandReceiver receiver;
+        protected IMessageBroker receiver;
 
-        protected Command(ICommandReceiver receiver, string userName)
+        protected Command(IMessageBroker receiver, string userName)
         {
             this.receiver = receiver;
             this.User = userName;
