@@ -7,13 +7,13 @@ using ConsoleTwitter;
 namespace ConsoleTwiterTests
 {
     [TestFixture]
-    public class CommandReceiverTests
+    public class MessageBrokerTests
     {
         [Test]
         public void GivenACommandReceiverWhenReadIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
             var repository = Substitute.For<IRepository>(); 
-            var receiver = new CommandReceiver(repository);
+            var receiver = new MessageBroker(repository);
 
             receiver.Read("Bob");
 
@@ -24,7 +24,7 @@ namespace ConsoleTwiterTests
         public void GivenACommandReceiverWhenFollowIsExecutedThenItCallsUserRepositoryTwiceToSearchForUserAndUserToFollow()
         {
             var repository = Substitute.For<IRepository>(); 
-            var receiver = new CommandReceiver(repository);
+            var receiver = new MessageBroker(repository);
 
             receiver.Follow("Alice", "Bob");
 
@@ -36,7 +36,7 @@ namespace ConsoleTwiterTests
         public void GivenACommandReceiverWhenWallIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
             var repository = Substitute.For<IRepository>();
-            var receiver = new CommandReceiver(repository);
+            var receiver = new MessageBroker(repository);
 
             receiver.Wall("Bob");
 
@@ -48,7 +48,7 @@ namespace ConsoleTwiterTests
         {
             var userWall = Substitute.For<IWall>();
             var repository = Substitute.For<IRepository>(); 
-            var receiver = new CommandReceiver(repository);
+            var receiver = new MessageBroker(repository);
 
             repository.FindByIdentifier("Bob").Returns(new User("Bob", userWall));
 
@@ -62,7 +62,7 @@ namespace ConsoleTwiterTests
         {
             var userWall = Substitute.For<IWall>();
             var repository = Substitute.For<IRepository>(); 
-            var receiver = new CommandReceiver(repository);
+            var receiver = new MessageBroker(repository);
 
             repository.Create("Bob").Returns(new User("Bob", userWall));
 
@@ -76,13 +76,32 @@ namespace ConsoleTwiterTests
         {
             var userWall = Substitute.For<IWall>();
             var repository = Substitute.For<IRepository>(); 
-            var receiver = new CommandReceiver(repository);
+            var receiver = new MessageBroker(repository);
 
             repository.FindByIdentifier("Bob").Returns(new User("Bob", userWall));
 
             receiver.Post("Bob", "message");
 
             userWall.Received().Post("message");
+        }
+
+        [Test]
+        public void GivenACommandReceiverWhenPostIsExecutedThenCallsPostOnUserFollowers()
+        {
+            var userWall = Substitute.For<IWall>();
+            var repository = Substitute.For<IRepository>(); 
+            var receiver = new MessageBroker(repository);
+
+            var bob = new User("Bob", userWall);
+            var alice = new User("Alice", userWall);
+            bob.AddFollower(alice);
+
+            repository.FindByIdentifier("Bob").Returns(bob);
+            repository.FindByIdentifier("Alice").Returns(alice);
+
+            receiver.Post("Bob", "message");
+
+            userWall.Received(2).Post("message");
         }
     }
 }

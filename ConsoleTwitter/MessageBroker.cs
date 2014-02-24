@@ -1,12 +1,13 @@
 ﻿using System;
+using System.Linq;
 
 namespace ConsoleTwitter
 {
-    public class CommandReceiver : ICommandReceiver
+    public class MessageBroker : ICommandReceiver
     {
         IRepository repository;
 
-        public CommandReceiver(IRepository repository)
+        public MessageBroker(IRepository repository)
         {
             this.repository = repository;
         }
@@ -27,6 +28,8 @@ namespace ConsoleTwitter
             }
 
             user.Post(message);
+
+            user.Followers.ToList().ForEach(u => u.Post(message));
         }
 
         public void Read(string userHandle)

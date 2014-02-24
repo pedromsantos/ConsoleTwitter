@@ -49,10 +49,10 @@
     <Compile Include="IConsole.cs" />
     <Compile Include="IInputParser.cs" />
     <Compile Include="ICommandReceiver.cs" />
-    <Compile Include="CommandReceiver.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="User.cs" />
     <Compile Include="IWall.cs" />
+    <Compile Include="MessageBroker.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
