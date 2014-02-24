@@ -6,23 +6,24 @@ namespace ConsoleTwitter
 {
     public class UserRepository : IRepository
     {
-        private IList<User> users = new List<User>();
+        private readonly IList<User> internalUsers;
 
         public UserRepository()
         {
+            internalUsers = new List<User>();
         }
 
         public IEnumerable<User> Users 
         {
             get 
             {
-                return this.users;
+                return this.internalUsers.Skip(0);
             }
         }
 
         public User FindByIdentifier(string identifier)
         {
-            return users.FirstOrDefault(u => u.UserHandle == identifier);
+            return internalUsers.FirstOrDefault(u => u.UserHandle == identifier);
         }
 
         public User Create(string identifier)
@@ -32,7 +33,7 @@ namespace ConsoleTwitter
             if (user == null)
             {
                 user = new User(identifier, new UserWall());
-                users.Add(user);
+                internalUsers.Add(user);
             }
 
             return user;

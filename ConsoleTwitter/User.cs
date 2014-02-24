@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ConsoleTwitter
 {
     public class User : IWall
     {
         private IWall wall;
+        private ICollection<User> internalFollowers;
 
         public User(string userHandle, IWall wall)
         {
             this.wall = wall;
             this.UserHandle = userHandle;
-            this.InternalFollowers = new LinkedList<User>();
+            this.internalFollowers = new List<User>();
         }
 
         public string UserHandle { get; private set; }
@@ -20,15 +22,13 @@ namespace ConsoleTwitter
         {
             get 
             {
-                return this.InternalFollowers;
+                return this.internalFollowers.Skip(0);
             }
         }
 
-        private ICollection<User> InternalFollowers { get; set; }
-
         public void AddFollower(User user)
         {
-            this.InternalFollowers.Add(user);
+            this.internalFollowers.Add(user);
         }
 
         public void Post(string message)
