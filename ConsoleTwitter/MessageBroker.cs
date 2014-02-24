@@ -43,9 +43,11 @@ namespace ConsoleTwitter
             return user.Posts();
         }
 
-        public void Wall(string userHandle)
+        public IEnumerable<Message> Wall(string userHandle)
         {
-            this.FindUserByHandle(userHandle);
+            var user = this.FindUserByHandle(userHandle);
+
+            return user.Wall;
         }
 
         private IUser FindUserByHandle(string userHandle)

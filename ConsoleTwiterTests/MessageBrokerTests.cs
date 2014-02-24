@@ -85,6 +85,16 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
+        public void GivenAMessageBrokerWhenWallIsExecutedThenReturnsTheUserPostsAndThePostsOfItsFollowwers()
+        {
+            repository.FindByIdentifier("Bob").Returns(bob);
+
+            broker.Wall("Bob");
+
+            var tmp = userWall.Received().Wall;
+        }
+
+        [Test]
         public void GivenAMessageBrokerWhenPostIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
             repository.FindByIdentifier("Bob").Returns(bob);

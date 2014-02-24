@@ -4,6 +4,7 @@ using NUnit.Framework;
 using NSubstitute;
 using ConsoleTwitter;
 using FluentAssertions;
+using System.Linq;
 
 namespace ConsoleTwiterTests
 {
@@ -34,7 +35,7 @@ namespace ConsoleTwiterTests
 
             bob = new User("Bob", userWallMock);
 
-            formater = new OutputMessageFormater();
+            formater = new MessageFormater();
         }
 
         [Test]
@@ -184,6 +185,35 @@ namespace ConsoleTwiterTests
             program.ProcessUserInput();
 
             alice.Followers.Should().Contain(charlie);
+        }
+
+        [Test]
+        [Category("Integration")]
+        public void GivenCharlieAndAliceAreUsersInTheSystemAndCharlieFollowsAliceWhenAWallCommandOnCharlieIsRequestedThenCharliesWallShouldContainPostsFromAliceAndCharlie()
+        {
+            var repository = new UserRepository();
+            var broker = new MessageBroker(repository);
+            var commandFactory = new CommandFactory(broker);
+            var parser = new InputParser(commandFactory);
+
+            var charlie = repository.Create("charlie");
+            repository.Create("alice");
+
+            var program = new Program(consoleMock, parser, formater);
+
+            consoleMock.ConsoleRead().Returns("charlie follows alice");
+            program.ProcessUserInput();
+
+            consoleMock.ConsoleRead().Returns("charlie -> message from charlie");
+            program.ProcessUserInput();
+
+            consoleMock.ConsoleRead().Returns("alice -> message from alice");
+            program.ProcessUserInput();
+
+            consoleMock.ConsoleRead().Returns("charlie wall");
+            program.ProcessUserInput();
+
+            charlie.Wall.Count().Should().Be(2);
         }
 
         [Test]

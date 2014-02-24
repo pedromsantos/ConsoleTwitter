@@ -47,7 +47,6 @@
     <Compile Include="Wrappers\SystemTime.cs" />
     <Compile Include="Wrappers\IConsole.cs" />
     <Compile Include="Messages\Message.cs" />
-    <Compile Include="Messages\OutputMessageFormater.cs" />
     <Compile Include="Messages\IMessageFormater.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandFactory.cs" />
@@ -62,6 +61,7 @@
     <Compile Include="Users\UserRepository.cs" />
     <Compile Include="Users\NullUser.cs" />
     <Compile Include="Users\IUser.cs" />
+    <Compile Include="Messages\MessageFormater.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

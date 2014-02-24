@@ -21,7 +21,7 @@ namespace ConsoleTwiterTests
             var userWall = new UserWall();
             var bob = new User("Bob", userWall);
             message = new Message(bob, "Bob's message");
-            formater = new OutputMessageFormater();
+            formater = new MessageFormater();
         }
 
         [Test]

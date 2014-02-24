@@ -2,7 +2,7 @@
 
 namespace ConsoleTwitter
 {
-    public class OutputMessageFormater : IMessageFormater
+    public class MessageFormater : IMessageFormater
     {
         public string Format(Message message)
         {

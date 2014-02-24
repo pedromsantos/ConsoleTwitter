@@ -11,6 +11,6 @@ namespace ConsoleTwitter
 
         IEnumerable<Message> Read(string user);
 
-        void Wall(string bob);
+        IEnumerable<Message> Wall(string bob);
     }
 }
