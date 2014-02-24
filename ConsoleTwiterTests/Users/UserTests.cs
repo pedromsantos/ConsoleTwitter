@@ -37,13 +37,23 @@ namespace ConsoleTwiterTests
 
             userWall.Received().Posts(bob);
         }
-            
+
         [Test]
         public void GivenAUserWhenAddFollowerIsCalledThenItAddsTheFollowerToItsListOfFollowers()
         {
+            bob.Posts();
+
+            userWall.Received().Posts(bob);
+        }
+
+        [Test]
+        public void GivenAUserWhenPostsIsCalledThenItCallsPostOnItsFollowers()
+        {
             bob.AddFollower(alice);
 
-            bob.Followers.Should().Contain(alice);
+            bob.Post("message");
+
+            userWall.Received().Post(alice, "message");
         }
     }
 }
