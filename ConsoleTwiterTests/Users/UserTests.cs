@@ -27,7 +27,7 @@ namespace ConsoleTwiterTests
         {
             bob.Post("message");
 
-            userWall.Received().Post(Arg.Any<User>(), Arg.Any<string>());
+            userWall.Received().Post(bob, "message");
         }
 
         [Test]
@@ -41,9 +41,9 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenAUserWhenAddFollowerIsCalledThenItAddsTheFollowerToItsListOfFollowers()
         {
-            bob.Posts();
+            bob.AddFollower(alice);
 
-            userWall.Received().Posts(bob);
+            bob.Followers.Should().Contain(alice);
         }
 
         [Test]
@@ -51,8 +51,9 @@ namespace ConsoleTwiterTests
         {
             bob.AddFollower(alice);
 
-            bob.Post("message");
+            alice.Post("message");
 
+            userWall.Received().Post(alice, "message");
             userWall.Received().Post(alice, "message");
         }
     }

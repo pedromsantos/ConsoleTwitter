@@ -15,7 +15,7 @@ namespace ConsoleTwitter
 
         public void Post(string message)
         {
-            internalMessages.Add(new Message(null, message));
+            internalMessages.Add(new Message(new NullUser(), message));
         }
 
         public void Post(IUser user, string message)

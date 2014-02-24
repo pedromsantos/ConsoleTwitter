@@ -124,20 +124,6 @@ namespace ConsoleTwiterTests
 
             userWall.Received().Post(bob, "message");
         }
-
-        [Test]
-        public void GivenAMessageBrokerWhenPostIsExecutedThenCallsPostOnUserFollowers()
-        {
-            bob.AddFollower(alice);
-
-            repository.FindByIdentifier("Bob").Returns(bob);
-            repository.FindByIdentifier("Alice").Returns(alice);
-
-            broker.Post("Bob", "message");
-
-            userWall.Received().Post(bob, "message");
-            userWall.Received().Post(alice, "message");
-        }
     }
 }
 

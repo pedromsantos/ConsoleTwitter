@@ -240,7 +240,7 @@ namespace ConsoleTwiterTests
             program.ProcessUserInput();
 
             consoleMock.Received().ConsoleWrite("charlie - message from charlie (0 seconds ago)");
-            //consoleMock.Received().ConsoleWrite("alice - message from charlie (0 seconds ago)");
+            consoleMock.Received().ConsoleWrite("alice - message from alice (0 seconds ago)");
         }
 
         [Test]

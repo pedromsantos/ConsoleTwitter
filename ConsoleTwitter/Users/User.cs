@@ -40,7 +40,7 @@ namespace ConsoleTwitter
         {
             this.wall.Post(user, message);
 
-            Followers.ToList().ForEach(u => u.Post(message));
+            Followers.ToList().ForEach(u => u.Post(user, message));
         }
 
         public IEnumerable<Message> Wall
