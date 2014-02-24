@@ -60,6 +60,8 @@
     <Compile Include="Commands\WallCommand.cs" />
     <Compile Include="Commands\IQueryCommand.cs" />
     <Compile Include="Users\UserRepository.cs" />
+    <Compile Include="Users\NullUser.cs" />
+    <Compile Include="Users\IUser.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

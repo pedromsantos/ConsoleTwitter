@@ -10,7 +10,7 @@ namespace ConsoleTwiterTests
     [TestFixture]
     public class MessageBrokerTests
     {
-        private IRepository repository; 
+        private IRepository<IUser> repository; 
         private MessageBroker broker;
         private IWall userWall;
         private User bob;
@@ -19,7 +19,7 @@ namespace ConsoleTwiterTests
         [SetUp]
         public void SetUp()
         {
-            repository = Substitute.For<IRepository>(); 
+            repository = Substitute.For<IRepository<IUser>>(); 
             userWall = Substitute.For<IWall>();
 
             broker = new MessageBroker(repository);
@@ -66,6 +66,17 @@ namespace ConsoleTwiterTests
         }
 
         [Test]
+        public void GivenBobAndAliceAreUsersInTheSystemWhenBobFollowsAliceThenAliceFollowersShouldContainBob()
+        {
+            repository.FindByIdentifier("Bob").Returns(bob);
+            repository.FindByIdentifier("Alice").Returns(alice);
+
+            broker.Follow("Alice", "Bob");
+
+            bob.Followers.Should().Contain(alice);
+        }
+
+        [Test]
         public void GivenAMessageBrokerWhenWallIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
             broker.Wall("Bob");
@@ -86,6 +97,7 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenAMessageBrokerAndThatTheUserPostingIsNotInTheSystemWhenPostIsExecutedThenItCallsRepositoryCreate()
         {
+            repository.FindByIdentifier("Bob").Returns(new NullUser());
             repository.Create("Bob").Returns(new User("Bob", userWall));
 
             broker.Post("Bob", "message");

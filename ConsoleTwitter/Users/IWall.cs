@@ -11,7 +11,7 @@ namespace ConsoleTwitter
 
         IEnumerable<Message> Wall { get; }
 
-        IEnumerable<Message> Posts(User user);
+        IEnumerable<Message> Posts(IUser user = null);
     }
     
 }

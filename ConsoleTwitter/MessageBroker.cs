@@ -7,24 +7,26 @@ namespace ConsoleTwitter
 {
     public class MessageBroker : IMessageBroker
     {
-        IRepository repository;
+        IRepository<IUser> repository;
 
-        public MessageBroker(IRepository repository)
+        public MessageBroker(IRepository<IUser> repository)
         {
             this.repository = repository;
         }
 
-        public void Follow(string userHandle, string userHandleToFollow)
+        public void Follow(string followerUserHandle, string followedUserHandle)
         {
-            this.FindUserByHandle(userHandle);
-            this.FindUserByHandle(userHandleToFollow);
+            var follower = this.FindUserByHandle(followerUserHandle);
+            var followed =this.FindUserByHandle(followedUserHandle);
+
+            followed.AddFollower(follower);
         }
 
         public void Post(string userHandle, string message)
         {
             var user = this.FindUserByHandle(userHandle);
 
-            if (user == null)
+            if (user is NullUser)
             {
                 user = this.repository.Create(userHandle);
             }
@@ -38,11 +40,6 @@ namespace ConsoleTwitter
         {
             var user = this.FindUserByHandle(userHandle);
 
-            if (user == null)
-            {
-                return new Collection<Message> { };
-            }
-
             return user.Posts();
         }
 
@@ -51,7 +48,7 @@ namespace ConsoleTwitter
             this.FindUserByHandle(userHandle);
         }
 
-        private User FindUserByHandle(string userHandle)
+        private IUser FindUserByHandle(string userHandle)
         {
             return this.repository.FindByIdentifier(userHandle);
         }

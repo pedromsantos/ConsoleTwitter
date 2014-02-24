@@ -10,8 +10,8 @@ namespace ConsoleTwiterTests
     [TestFixture]
     public class UserRepositoryTests
     {
-        IRepository repository;
-        User bob;
+        IRepository<IUser> repository;
+        IUser bob;
 
         [SetUp]
         public void Setup()

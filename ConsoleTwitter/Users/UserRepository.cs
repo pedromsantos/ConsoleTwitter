@@ -4,16 +4,16 @@ using System.Linq;
 
 namespace ConsoleTwitter
 {
-    public class UserRepository : IRepository
+    public class UserRepository : IRepository<IUser>
     {
-        private readonly IList<User> internalUsers;
+        private readonly IList<IUser> internalUsers;
 
         public UserRepository()
         {
-            internalUsers = new List<User>();
+            internalUsers = new List<IUser>();
         }
 
-        public IEnumerable<User> Users 
+        public IEnumerable<IUser> Users 
         {
             get 
             {
@@ -21,16 +21,18 @@ namespace ConsoleTwitter
             }
         }
 
-        public User FindByIdentifier(string identifier)
+        public IUser FindByIdentifier(string identifier)
         {
-            return internalUsers.FirstOrDefault(u => u.UserHandle == identifier);
+            var user = internalUsers.FirstOrDefault(u => u.UserHandle == identifier);
+
+            return user != null ? (IUser)user : (IUser)new NullUser();
         }
 
-        public User Create(string identifier)
+        public IUser Create(string identifier)
         {
             var user = FindByIdentifier(identifier);
 
-            if (user == null)
+            if (user is NullUser)
             {
                 user = new User(identifier, new UserWall());
                 internalUsers.Add(user);

@@ -12,7 +12,7 @@ namespace ConsoleTwiterTests
     {
         private IConsole consoleMock;
         private IInputParser parserMock;
-        private IRepository repositoryMock; 
+        private IRepository<IUser> repositoryMock; 
         private IMessageBroker brokerMock;
         private IWall userWallMock;
         private IMessageFormater formaterMock;
@@ -26,7 +26,7 @@ namespace ConsoleTwiterTests
             SystemTime.Now = () => new DateTime(2000,1, 1);
 
             consoleMock = Substitute.For<IConsole>();
-            repositoryMock = Substitute.For<IRepository>(); 
+            repositoryMock = Substitute.For<IRepository<IUser>>(); 
             userWallMock = Substitute.For<IWall>();
             parserMock = Substitute.For<IInputParser>();
             brokerMock = Substitute.For<IMessageBroker>();
@@ -164,7 +164,28 @@ namespace ConsoleTwiterTests
 
             consoleMock.DidNotReceive().ConsoleWrite("");
         }
-            
+
+        [Test]
+        [Category("Integration")]
+        public void GivenCharlieAndAliceAreUsersInTheSystemWhenCharlieFollowsAliceThenAliceFollowersShouldContainCharlie()
+        {
+            var repository = new UserRepository();
+            var broker = new MessageBroker(repository);
+            var commandFactory = new CommandFactory(broker);
+            var parser = new InputParser(commandFactory);
+
+            var charlie = repository.Create("charlie");
+            var alice = repository.Create("alice");
+
+            consoleMock.ConsoleRead().Returns("charlie follows alice");
+
+            var program = new Program(consoleMock, parser, formater);
+
+            program.ProcessUserInput();
+
+            alice.Followers.Should().Contain(charlie);
+        }
+
         [Test]
         public void GivenTheUserTypesAnInvalidInputWhenProcessUserInputIsCalledThenItDoesNotExecuteCommand()
         {

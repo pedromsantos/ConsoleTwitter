@@ -31,7 +31,7 @@ namespace ConsoleTwitter
             }
         }
 
-        public IEnumerable<Message> Posts(User user)
+        public IEnumerable<Message> Posts(IUser user)
         {
             return internalMessages.Where(m => m.User.UserHandle == user.UserHandle);
         }

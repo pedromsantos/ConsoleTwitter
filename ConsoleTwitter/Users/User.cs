@@ -4,21 +4,21 @@ using System.Linq;
 
 namespace ConsoleTwitter
 {
-    public class User : IWall
+    public class User : IUser
     {
         private IWall wall;
-        private ICollection<User> internalFollowers;
+        private ICollection<IUser> internalFollowers;
 
         public User(string userHandle, IWall wall)
         {
             this.wall = wall;
             this.UserHandle = userHandle;
-            this.internalFollowers = new List<User>();
+            this.internalFollowers = new List<IUser>();
         }
 
         public string UserHandle { get; private set; }
 
-        public IEnumerable<User> Followers 
+        public IEnumerable<IUser> Followers 
         {
             get 
             {
@@ -26,7 +26,7 @@ namespace ConsoleTwitter
             }
         }
 
-        public void AddFollower(User user)
+        public void AddFollower(IUser user)
         {
             this.internalFollowers.Add(user);
         }
@@ -49,7 +49,7 @@ namespace ConsoleTwitter
             }
         }
 
-        public IEnumerable<Message> Posts(User user = null)
+        public IEnumerable<Message> Posts(IUser user = null)
         {
             return this.wall.Posts(this); 
         }

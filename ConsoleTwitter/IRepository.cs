@@ -2,11 +2,11 @@
 
 namespace ConsoleTwitter
 {
-    public interface IRepository
+    public interface IRepository<T>
     {
-        User FindByIdentifier(string identifier);
+        T FindByIdentifier(string identifier);
 
-        User Create(string identifier);
+        T Create(string identifier);
     }
 }
 
