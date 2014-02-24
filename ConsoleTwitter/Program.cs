@@ -1,4 +1,6 @@
-﻿namespace ConsoleTwitter
+﻿using System.Linq;
+
+namespace ConsoleTwitter
 {
     public class Program
     {
@@ -16,9 +18,14 @@
         {
             var input = this.consoleWrapper.ConsoleRead();
 
-            var comand = this.parser.Parse(input);
+            var command = this.parser.Parse(input);
 
-            comand.Execute();
+            command.Execute();
+
+            if (command is IQueryCommand)
+            {
+                ((IQueryCommand)command).Results.ToList().ForEach(r => this.consoleWrapper.ConsoleWrite(r));
+            }
         }
             
         public static void Main()
