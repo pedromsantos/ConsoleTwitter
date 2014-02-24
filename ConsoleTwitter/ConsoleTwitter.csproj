@@ -41,7 +41,6 @@
     <Compile Include="IRepository.cs" />
     <Compile Include="MessageBroker.cs" />
     <Compile Include="IMessageBroker.cs" />
-    <Compile Include="UserRepository.cs" />
     <Compile Include="Users\IWall.cs" />
     <Compile Include="Users\User.cs" />
     <Compile Include="Users\UserWall.cs" />
@@ -60,6 +59,7 @@
     <Compile Include="Commands\ReadCommand.cs" />
     <Compile Include="Commands\WallCommand.cs" />
     <Compile Include="Commands\IQueryCommand.cs" />
+    <Compile Include="Users\UserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
