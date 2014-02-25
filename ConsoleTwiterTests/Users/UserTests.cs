@@ -11,6 +11,10 @@
     [TestFixture]
     public class UserTests
     {
+        private const string BobUserHandle = "Bob";
+        private const string AliceUserHandle = "Alice";
+        private const string PostMessageText = "message";
+
         private IWall userWall;
         private User bob;
         private User alice;
@@ -19,16 +23,16 @@
         public void Setup()
         {
             this.userWall = Substitute.For<IWall>();
-            this.bob = new User("Bob", this.userWall);
-            this.alice = new User("Alice", this.userWall);
+            this.bob = new User(BobUserHandle, this.userWall);
+            this.alice = new User(AliceUserHandle, this.userWall);
         }
 
         [Test]
         public void GivenAUserWhenPostIsCalledThenItCallsPostOnWall()
         {
-            this.bob.Post("message");
+            this.bob.Post(PostMessageText);
 
-            this.userWall.Received().Post(this.bob, "message");
+            this.userWall.Received().Post(this.bob, PostMessageText);
         }
 
         [Test]
