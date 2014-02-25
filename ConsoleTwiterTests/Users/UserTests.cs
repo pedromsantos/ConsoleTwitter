@@ -79,12 +79,12 @@
             this.bob = new User(BobUserHandle, new UserWall());
             this.alice = new User(AliceUserHandle, new UserWall());
 
-            this.alice.Post("Alice message");
-            this.bob.Post("Bob message");
+            this.alice.Post(this.ComposePostMessage(AliceUserHandle, PostMessageText));
+            this.bob.Post(this.ComposePostMessage(BobUserHandle, PostMessageText));
 
             this.bob.AddFollower(this.alice);
 
-            this.alice.Wall.Should().Contain(m => m.Body == "Bob message");
+            this.alice.Wall.Should().Contain(m => m.Body == this.ComposePostMessage(BobUserHandle, PostMessageText));
         }
 
         [Test]
@@ -93,18 +93,22 @@
             this.bob = new User(BobUserHandle, new UserWall());
             this.alice = new User(AliceUserHandle, new UserWall());
 
-
-            this.alice.Post("Alice message");
+            this.alice.Post(this.ComposePostMessage(AliceUserHandle, PostMessageText));
 
             SystemTime.Now = () => new DateTime(2000, 1, 1).AddSeconds(1);
 
-            this.bob.Post("Bob message");
+            this.bob.Post(this.ComposePostMessage(BobUserHandle, PostMessageText));
 
             this.bob.AddFollower(this.alice);
 
             var firstPost = this.alice.Wall.First();
 
-            firstPost.Body.Should().Be("Bob message");
+            firstPost.Body.Should().Be(this.ComposePostMessage(BobUserHandle, PostMessageText));
+        }
+
+        private string ComposePostMessage(string userHandle, string message)
+        {
+            return string.Format("{0} {1}", userHandle, message);
         }
     }
 }
