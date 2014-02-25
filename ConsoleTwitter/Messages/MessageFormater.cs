@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace ConsoleTwitter
+﻿namespace ConsoleTwitter.Messages
 {
     public class MessageFormater : IMessageFormater
     {
-        private IMessageFormater elapsedTimeFormater;
+        private readonly IMessageFormater elapsedTimeFormater;
 
         public MessageFormater(ElapsedTimeMessageFormater messageFormater)
         {
@@ -13,8 +11,7 @@ namespace ConsoleTwitter
 
         public string Format(Message message)
         {
-            return string.Format("{0} ({1})", message.Body, elapsedTimeFormater.Format(message));
+            return string.Format("{0} ({1})", message.Body, this.elapsedTimeFormater.Format(message));
         }
     }
 }
-

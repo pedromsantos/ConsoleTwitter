@@ -1,7 +1,8 @@
-using System.Collections.Generic;
-
-namespace ConsoleTwitter
+namespace ConsoleTwitter.Commands
 {
+    using System.Collections.Generic;
+
+    using ConsoleTwitter.Messages;
 
     public interface IQueryCommand : ICommand
     {

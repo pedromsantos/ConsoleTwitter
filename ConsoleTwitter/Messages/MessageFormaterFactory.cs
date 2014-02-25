@@ -1,7 +1,7 @@
-using System.Linq;
-
-namespace ConsoleTwitter
+namespace ConsoleTwitter.Messages
 {
+    using ConsoleTwitter.Commands;
+
     public class MessageFormaterFactory : IMessageFormaterFactory
     {
         public IMessageFormater CreateFormaterForCommand(IQueryCommand command)

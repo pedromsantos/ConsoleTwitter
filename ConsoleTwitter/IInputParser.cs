@@ -1,10 +1,9 @@
 namespace ConsoleTwitter
 {
-    using System.Linq;
+    using ConsoleTwitter.Commands;
 
     public interface IInputParser
     {
-        ICommand Parse (string inputString);
+        ICommand Parse(string inputString);
     }
-    
 }

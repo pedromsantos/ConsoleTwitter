@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ConsoleTwitter
+﻿namespace ConsoleTwitter
 {
     public interface IRepository<T>
     {
@@ -9,4 +7,3 @@ namespace ConsoleTwitter
         T Create(string identifier);
     }
 }
-

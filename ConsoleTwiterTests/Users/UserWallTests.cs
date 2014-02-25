@@ -1,17 +1,21 @@
-﻿using System;
-using NUnit.Framework;
-using ConsoleTwitter;
-using FluentAssertions;
-
-namespace ConsoleTwiterTests
+﻿namespace ConsoleTwiterTests.Users
 {
+    using System;
+
+    using ConsoleTwitter.Users;
+    using ConsoleTwitter.Wrappers;
+
+    using FluentAssertions;
+
+    using NUnit.Framework;
+
     [TestFixture]
     public class UserWallTests
     {
         [SetUp]
         public void Setup()
         {
-            SystemTime.Now = () => new DateTime(2000,1, 1);
+            SystemTime.Now = () => new DateTime(2000, 1, 1);
         }
 
         [Test]
@@ -50,4 +54,3 @@ namespace ConsoleTwiterTests
         }
     }
 }
-

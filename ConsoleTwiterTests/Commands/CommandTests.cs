@@ -1,12 +1,15 @@
-﻿using System;
-using NUnit.Framework;
-using NSubstitute;
-
-using ConsoleTwitter;
-using FluentAssertions;
-
-namespace ConsoleTwiterTests
+﻿namespace ConsoleTwiterTests.Commands
 {
+    using ConsoleTwitter;
+    using ConsoleTwitter.Commands;
+    using ConsoleTwitter.Messages;
+
+    using FluentAssertions;
+
+    using NSubstitute;
+
+    using NUnit.Framework;
+
     [TestFixture]
     public class CommandTests
     {
@@ -15,25 +18,25 @@ namespace ConsoleTwiterTests
         [SetUp]
         public void Setup()
         {
-            receiver = Substitute.For<IMessageBroker>();
+            this.receiver = Substitute.For<IMessageBroker>();
         }
 
         [Test]
         public void GivenAReadCommandWhenExecuteMethodIsCalledThenItCallsReadInTheCommandReceiver()
         {
-            var command = new ReadCommand(receiver, "Bob");
+            var command = new ReadCommand(this.receiver, "Bob");
 
             command.Execute();
 
-            receiver.Received().Read("Bob");
+            this.receiver.Received().Read("Bob");
         }
 
         [Test]
         public void GivenAReadCommandWhenExecuteMethodIsCalledThenItStoresTheExecutionResultInResults()
         {
-            var command = new ReadCommand(receiver, "Bob");
+            var command = new ReadCommand(this.receiver, "Bob");
 
-            receiver.Read("Bob").Returns(new [] { new Message(null, "message") });
+            this.receiver.Read("Bob").Returns(new[] { new Message(null, "message") });
 
             command.Execute();
 
@@ -43,39 +46,39 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenAPostCommandWhenExecuteMethodIsCalledThenItCallsPostInTheCommandReceiver()
         {
-            var command = new PostCommand(receiver, "Bob", "message");
+            var command = new PostCommand(this.receiver, "Bob", "message");
 
             command.Execute();
 
-            receiver.Received().Post("Bob", "message");
+            this.receiver.Received().Post("Bob", "message");
         }
 
         [Test]
         public void GivenAFollowCommandWhenExecuteMethodIsCalledThenItCallsFollowInTheCommandReceiver()
         {
-            var command = new FollowCommand(receiver, "Alice", "Bob");
+            var command = new FollowCommand(this.receiver, "Alice", "Bob");
 
             command.Execute();
 
-            receiver.Received().Follow("Alice", "Bob");
+            this.receiver.Received().Follow("Alice", "Bob");
         }
 
         [Test]
         public void GivenAWallCommandWhenExecuteMethodIsCalledThenItCallsWallInTheCommandReceiver()
         {
-            var command = new WallCommand(receiver, "Bob");
+            var command = new WallCommand(this.receiver, "Bob");
 
             command.Execute();
 
-            receiver.Received().Wall("Bob");
+            this.receiver.Received().Wall("Bob");
         }
 
         [Test]
         public void GivenAWallCommandWhenExecuteMethodIsCalledThenItStoresTheExecutionResultInResults()
         {
-            var command = new WallCommand(receiver, "Bob");
+            var command = new WallCommand(this.receiver, "Bob");
 
-            receiver.Wall("Bob").Returns(new [] { new Message(null, "message") });
+            this.receiver.Wall("Bob").Returns(new[] { new Message(null, "message") });
 
             command.Execute();
 
@@ -83,4 +86,3 @@ namespace ConsoleTwiterTests
         }
     }
 }
-

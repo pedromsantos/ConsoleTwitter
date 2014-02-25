@@ -1,4 +1,4 @@
-﻿namespace ConsoleTwitter
+﻿namespace ConsoleTwitter.Commands
 {
     public class FollowCommand : Command
     {
@@ -12,7 +12,7 @@
 
         public override void Execute()
         {
-            this.broker.Follow(User, UserToFollow);
+            this.broker.Follow(this.User, this.UserToFollow);
         }
     }
 }

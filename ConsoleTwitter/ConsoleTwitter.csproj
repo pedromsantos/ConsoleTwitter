@@ -90,10 +90,5 @@
       </Properties>
     </MonoDevelop>
   </ProjectExtensions>
-  <ItemGroup>
-    <Folder Include="Users\" />
-    <Folder Include="Wrappers\" />
-    <Folder Include="Messages\" />
-    <Folder Include="Commands\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

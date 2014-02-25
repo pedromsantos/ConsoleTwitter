@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ConsoleTwitter
+﻿namespace ConsoleTwitter.Commands
 {
     public abstract class Command : ICommand
     {

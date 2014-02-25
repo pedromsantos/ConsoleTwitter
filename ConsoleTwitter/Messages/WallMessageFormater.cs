@@ -1,10 +1,8 @@
-﻿using System;
-
-namespace ConsoleTwitter
+﻿namespace ConsoleTwitter.Messages
 {
     public class WallMessageFormater : IMessageFormater
     {
-        private MessageFormater messageFormater;
+        private readonly MessageFormater messageFormater;
 
         public WallMessageFormater(MessageFormater messageFormater)
         {
@@ -13,8 +11,7 @@ namespace ConsoleTwitter
 
         public string Format(Message message)
         {
-            return string.Format("{0} - {1}",message.User.UserHandle, messageFormater.Format(message));
+            return string.Format("{0} - {1}", message.User.UserHandle, this.messageFormater.Format(message));
         }
     }
 }
-

@@ -1,4 +1,4 @@
-﻿namespace ConsoleTwitter
+﻿namespace ConsoleTwitter.Commands
 {
     public class PostCommand : Command
     {
@@ -10,9 +10,9 @@
 
         public string Message { get; private set; }
 
-        public override void Execute ()
+        public override void Execute()
         {
-            this.broker.Post(User, Message);
+            this.broker.Post(this.User, this.Message);
         }
     }
 }

@@ -1,7 +1,7 @@
-using System;
-
-namespace ConsoleTwitter
+namespace ConsoleTwitter.Wrappers
 {
+    using System;
+
     public class ConsoleWrapper : IConsole
     {
         public string ConsoleRead()

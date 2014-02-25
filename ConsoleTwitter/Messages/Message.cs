@@ -1,16 +1,17 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ConsoleTwitter
+namespace ConsoleTwitter.Messages
 {
+    using System;
+
+    using ConsoleTwitter.Users;
+    using ConsoleTwitter.Wrappers;
+
     public class Message
     {
-        private IUser user;
+        private readonly IUser user;
 
-        private string message;
+        private readonly string message;
 
-        private DateTime timestamp;
+        private readonly DateTime timestamp;
 
         public Message(IUser user, string message)
         {
@@ -23,7 +24,7 @@ namespace ConsoleTwitter
         {
             get 
             {
-                return user;
+                return this.user;
             }
         }
 
@@ -31,7 +32,7 @@ namespace ConsoleTwitter
         {
             get 
             {
-                return message;
+                return this.message;
             }
         }
 
@@ -39,9 +40,8 @@ namespace ConsoleTwitter
         {
             get 
             {
-                return timestamp;
+                return this.timestamp;
             }
         }
     }
-    
 }

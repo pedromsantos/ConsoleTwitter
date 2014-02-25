@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace ConsoleTwitter
+﻿namespace ConsoleTwitter.Commands
 {
     public interface ICommand
     {
@@ -8,5 +6,4 @@ namespace ConsoleTwitter
 
         void Execute();
     }
-
 }

@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ConsoleTwitter
+﻿namespace ConsoleTwitter.Wrappers
 {
     public interface IConsole
     {

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-
-namespace ConsoleTwitter
+﻿namespace ConsoleTwitter
 {
+    using System.Collections.Generic;
+
+    using ConsoleTwitter.Messages;
+    using ConsoleTwitter.Users;
+
     public class MessageBroker : IMessageBroker
     {
-        IRepository<IUser> repository;
+        private readonly IRepository<IUser> repository;
 
         public MessageBroker(IRepository<IUser> repository)
         {
@@ -17,7 +17,7 @@ namespace ConsoleTwitter
         public void Follow(string followerUserHandle, string followedUserHandle)
         {
             var follower = this.FindUserByHandle(followerUserHandle);
-            var followed =this.FindUserByHandle(followedUserHandle);
+            var followed = this.FindUserByHandle(followedUserHandle);
 
             followed.AddFollower(follower);
         }
@@ -54,4 +54,3 @@ namespace ConsoleTwitter
         }
     }
 }
-

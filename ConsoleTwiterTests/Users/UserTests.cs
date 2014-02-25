@@ -1,12 +1,13 @@
-﻿using System;
-using NUnit.Framework;
-using NSubstitute;
-using FluentAssertions;
-
-using ConsoleTwitter;
-
-namespace ConsoleTwiterTests
+﻿namespace ConsoleTwiterTests.Users
 {
+    using ConsoleTwitter.Users;
+
+    using FluentAssertions;
+
+    using NSubstitute;
+
+    using NUnit.Framework;
+
     [TestFixture]
     public class UserTests
     {
@@ -17,45 +18,44 @@ namespace ConsoleTwiterTests
         [SetUp]
         public void Setup()
         {
-            userWall = Substitute.For<IWall>();
-            bob = new User("Bob", userWall);
-            alice = new User("Alice", userWall);
+            this.userWall = Substitute.For<IWall>();
+            this.bob = new User("Bob", this.userWall);
+            this.alice = new User("Alice", this.userWall);
         }
 
         [Test]
         public void GivenAUserWhenPostIsCalledThenItCallsPostOnWall()
         {
-            bob.Post("message");
+            this.bob.Post("message");
 
-            userWall.Received().Post(bob, "message");
+            this.userWall.Received().Post(this.bob, "message");
         }
 
         [Test]
         public void GivenAUserWhenPostsIsCalledThenItCallsPostsOnWall()
         {
-            bob.Posts();
+            this.bob.Posts();
 
-            userWall.Received().Posts(bob);
+            this.userWall.Received().Posts(this.bob);
         }
 
         [Test]
         public void GivenAUserWhenAddFollowerIsCalledThenItAddsTheFollowerToItsListOfFollowers()
         {
-            bob.AddFollower(alice);
+            this.bob.AddFollower(this.alice);
 
-            bob.Followers.Should().Contain(alice);
+            this.bob.Followers.Should().Contain(this.alice);
         }
 
         [Test]
         public void GivenAUserWhenPostsIsCalledThenItCallsPostOnItsFollowers()
         {
-            bob.AddFollower(alice);
+            this.bob.AddFollower(this.alice);
 
-            alice.Post("message");
+            this.alice.Post("message");
 
-            userWall.Received().Post(alice, "message");
-            userWall.Received().Post(alice, "message");
+            this.userWall.Received().Post(this.alice, "message");
+            this.userWall.Received().Post(this.alice, "message");
         }
     }
 }
-

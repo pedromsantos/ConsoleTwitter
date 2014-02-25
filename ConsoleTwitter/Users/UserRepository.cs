@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ConsoleTwitter
+﻿namespace ConsoleTwitter.Users
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class UserRepository : IRepository<IUser>
     {
         private readonly IList<IUser> internalUsers;
 
         public UserRepository()
         {
-            internalUsers = new List<IUser>();
+            this.internalUsers = new List<IUser>();
         }
 
         public IEnumerable<IUser> Users 
@@ -23,23 +22,22 @@ namespace ConsoleTwitter
 
         public IUser FindByIdentifier(string identifier)
         {
-            var user = internalUsers.FirstOrDefault(u => u.UserHandle == identifier);
+            var user = this.internalUsers.FirstOrDefault(u => u.UserHandle == identifier);
 
-            return user != null ? (IUser)user : (IUser)new NullUser();
+            return user ?? new NullUser();
         }
 
         public IUser Create(string identifier)
         {
-            var user = FindByIdentifier(identifier);
+            var user = this.FindByIdentifier(identifier);
 
             if (user is NullUser)
             {
                 user = new User(identifier, new UserWall());
-                internalUsers.Add(user);
+                this.internalUsers.Add(user);
             }
 
             return user;
         }
     }
 }
-

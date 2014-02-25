@@ -1,40 +1,42 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-
-namespace ConsoleTwiterTests
+﻿namespace ConsoleTwiterTests
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
     using ConsoleTwitter;
-    using FluentAssertions;
-    using NUnit.Framework;
+    using ConsoleTwitter.Commands;
+
     using NSubstitute;
+
+    using NUnit.Framework;
 
     [TestFixture]
     public class InputParserTests
     {
-        ICommandFactory factory;
-        InputParser parser;
+        private ICommandFactory factory;
+        private InputParser parser;
 
         [SetUp]
         public void Setup()
         {
-            factory = Substitute.For<ICommandFactory>();
-            parser = new InputParser(factory);
+            this.factory = Substitute.For<ICommandFactory>();
+            this.parser = new InputParser(this.factory);
         }
 
         [Test]
         public void GivenAUserInputWhenParseIsCalledThenItCallsCreateCommand()
         {
-            parser.Parse("user");
+            this.parser.Parse("user");
         
-            factory.Received().CreateCommand("user", null, Arg.Is<IEnumerable<string>>(users => !users.Any()));
+            this.factory.Received().CreateCommand("user", null, Arg.Is<IEnumerable<string>>(users => !users.Any()));
         }
 
         [Test]
         public void GivenAnInvalidUserInputWhenParseIsCalledThenItCallsCreateCommandSettingAllArgumentsToNull()
         {
-            parser.Parse(string.Empty);
+            this.parser.Parse(string.Empty);
         
-            factory.Received().CreateCommand(string.Empty, null, Arg.Is<IEnumerable<string>>(users => !users.Any()));
+            this.factory.Received().CreateCommand(string.Empty, null, Arg.Is<IEnumerable<string>>(users => !users.Any()));
         }
 
         [Test]
@@ -42,9 +44,9 @@ namespace ConsoleTwiterTests
         {
             const string UserName = "user";
         
-            parser.Parse(UserName);
+            this.parser.Parse(UserName);
         
-            factory.Received().CreateCommand("user", null, Arg.Is<IEnumerable<string>>(users => !users.Any()));
+            this.factory.Received().CreateCommand("user", null, Arg.Is<IEnumerable<string>>(users => !users.Any()));
         }
 
         [Test]
@@ -52,9 +54,9 @@ namespace ConsoleTwiterTests
         {
             const string Input = "user -> message";
         
-            parser.Parse(Input);
+            this.parser.Parse(Input);
         
-            factory.Received().CreateCommand("user", "->", Arg.Is<IEnumerable<string>>(messages => messages.All(message => message == "message")));
+            this.factory.Received().CreateCommand("user", "->", Arg.Is<IEnumerable<string>>(messages => messages.All(message => message == "message")));
         }
 
         [Test]
@@ -62,9 +64,9 @@ namespace ConsoleTwiterTests
         {
             const string Input = "Alice follows Bob";
         
-            parser.Parse(Input);
+            this.parser.Parse(Input);
         
-            factory.Received().CreateCommand("Alice", "follows", Arg.Is<IEnumerable<string>>(users => users.All(user => user == "Bob")));
+            this.factory.Received().CreateCommand("Alice", "follows", Arg.Is<IEnumerable<string>>(users => users.All(user => user == "Bob")));
         }
 
         [Test]
@@ -72,9 +74,9 @@ namespace ConsoleTwiterTests
         {
             const string Input = "user wall";
         
-            parser.Parse(Input);
+            this.parser.Parse(Input);
         
-            factory.Received().CreateCommand("user", "wall", Arg.Is<IEnumerable<string>>(users => !users.Any()));
+            this.factory.Received().CreateCommand("user", "wall", Arg.Is<IEnumerable<string>>(users => !users.Any()));
         }
     }
 }

@@ -1,7 +1,6 @@
-using System.Collections.Generic;
-
-namespace ConsoleTwitter
+namespace ConsoleTwitter.Commands
 {
+    using System.Collections.Generic;
     using System.Linq;
 
     public class CommandFactory : ICommandFactory
@@ -10,7 +9,7 @@ namespace ConsoleTwitter
         private const string WallToken = "wall";
         private const string PostToken = "->";
 
-        private IMessageBroker receiver;
+        private readonly IMessageBroker receiver;
 
         public CommandFactory(IMessageBroker receiver)
         {
@@ -26,7 +25,7 @@ namespace ConsoleTwitter
 
             action = action == null ? null : action.ToLower();
 
-            return CreateActionCommand(userName, action, arguments);
+            return this.CreateActionCommand(userName, action, arguments);
         }
 
         protected virtual ICommand CreateActionCommand(string userName, string action, IEnumerable<string> arguments)

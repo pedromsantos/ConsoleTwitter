@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ConsoleTwitter
+﻿namespace ConsoleTwitter.Users
 {
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using ConsoleTwitter.Messages;
+
     public class User : IUser
     {
-        private IWall wall;
-        private ICollection<IUser> internalFollowers;
+        private readonly IWall wall;
+        private readonly ICollection<IUser> internalFollowers;
 
         public User(string userHandle, IWall wall)
         {
@@ -26,6 +27,14 @@ namespace ConsoleTwitter
             }
         }
 
+        public IEnumerable<Message> Wall
+        {
+            get
+            {
+                return this.wall.Wall;
+            }
+        }
+
         public void AddFollower(IUser user)
         {
             this.internalFollowers.Add(user);
@@ -40,15 +49,7 @@ namespace ConsoleTwitter
         {
             this.wall.Post(user, message);
 
-            Followers.ToList().ForEach(u => u.Post(user, message));
-        }
-
-        public IEnumerable<Message> Wall
-        {
-            get 
-            {
-                return this.wall.Wall;
-            }
+            this.Followers.ToList().ForEach(u => u.Post(user, message));
         }
 
         public IEnumerable<Message> Posts(IUser user = null)
@@ -57,4 +58,3 @@ namespace ConsoleTwitter
         }
     }
 }
-

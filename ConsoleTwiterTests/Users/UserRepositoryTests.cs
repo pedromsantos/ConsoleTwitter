@@ -1,35 +1,37 @@
-﻿using System;
-using NUnit.Framework;
-using FluentAssertions;
-
-using ConsoleTwitter;
-using System.Linq;
-
-namespace ConsoleTwiterTests
+﻿namespace ConsoleTwiterTests.Users
 {
+    using System.Linq;
+
+    using ConsoleTwitter;
+    using ConsoleTwitter.Users;
+
+    using FluentAssertions;
+
+    using NUnit.Framework;
+
     [TestFixture]
     public class UserRepositoryTests
     {
-        IRepository<IUser> repository;
-        IUser bob;
+        private IRepository<IUser> repository;
+        private IUser bob;
 
         [SetUp]
         public void Setup()
         {
-            repository = new UserRepository();
-            bob = repository.Create("Bob");
+            this.repository = new UserRepository();
+            this.bob = this.repository.Create("Bob");
         }
 
         [Test]
         public void GivenAnEmptyRepositoryWhenCreateIsCalledThenItCreatesANewUser()
         {
-            bob.UserHandle.Should().Be("Bob");
+            this.bob.UserHandle.Should().Be("Bob");
         }
 
         [Test]
         public void GivenARepositoryWithAliceAndBobWhenFindByIdentifierIsCalledUsingBobsHandleThenBobsUserIsReturned()
         {
-            var user = repository.FindByIdentifier("Bob");
+            var user = this.repository.FindByIdentifier("Bob");
 
             user.UserHandle.Should().Be("Bob");
         }
@@ -37,10 +39,9 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenARepositoryWithBobAsUserWhenCreateIsCalledForBobThenItDoesNotCreateANewUser()
         {
-            repository.Create("Bob");
+            this.repository.Create("Bob");
 
-            ((UserRepository)repository).Users.Count().Should().Be(1);
+            ((UserRepository)this.repository).Users.Count().Should().Be(1);
         }
     }
 }
-

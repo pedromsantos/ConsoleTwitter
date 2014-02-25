@@ -1,8 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ConsoleTwitter
+﻿namespace ConsoleTwitter
 {
+    using System.Collections.Generic;
+
+    using ConsoleTwitter.Messages;
+
     public interface IMessageBroker
     {
         void Follow(string user, string userToFollow);

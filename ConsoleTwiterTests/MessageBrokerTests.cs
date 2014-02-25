@@ -1,16 +1,18 @@
-﻿using System;
-using NUnit.Framework;
-using NSubstitute;
-
-using ConsoleTwitter;
-using FluentAssertions;
-
-namespace ConsoleTwiterTests
+﻿namespace ConsoleTwiterTests
 {
+    using ConsoleTwitter;
+    using ConsoleTwitter.Users;
+
+    using FluentAssertions;
+
+    using NSubstitute;
+
+    using NUnit.Framework;
+
     [TestFixture]
     public class MessageBrokerTests
     {
-        private IRepository<IUser> repository; 
+        private IRepository<IUser> repository;
         private MessageBroker broker;
         private IWall userWall;
         private User bob;
@@ -19,39 +21,39 @@ namespace ConsoleTwiterTests
         [SetUp]
         public void SetUp()
         {
-            repository = Substitute.For<IRepository<IUser>>(); 
-            userWall = Substitute.For<IWall>();
+            this.repository = Substitute.For<IRepository<IUser>>();
+            this.userWall = Substitute.For<IWall>();
 
-            broker = new MessageBroker(repository);
+            this.broker = new MessageBroker(this.repository);
 
-            bob = new User("Bob", userWall);
-            alice = new User("Alice", userWall);
+            this.bob = new User("Bob", this.userWall);
+            this.alice = new User("Alice", this.userWall);
         }
 
         [Test]
         public void GivenAMessageBrokerWhenReadIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
-            repository.FindByIdentifier("Bob").Returns(bob);
+            this.repository.FindByIdentifier("Bob").Returns(this.bob);
 
-            broker.Read("Bob");
+            this.broker.Read("Bob");
 
-            repository.Received().FindByIdentifier("Bob");
+            this.repository.Received().FindByIdentifier("Bob");
         }
 
         [Test]
         public void GivenAMessageBrokerWhenReadIsExecutedThenItCallsPostsOnUserWall()
         {
-            repository.FindByIdentifier("Bob").Returns(bob);
+            this.repository.FindByIdentifier("Bob").Returns(this.bob);
 
-            broker.Read("Bob");
+            this.broker.Read("Bob");
 
-            userWall.Received().Posts(bob);
+            this.userWall.Received().Posts(this.bob);
         }
 
         [Test]
         public void GivenAMessageBrokerAndANonExistingUserWhenReadIsExecutedThenItReturnsNoMessages()
         {
-            var result = broker.Read("Bob");
+            var result = this.broker.Read("Bob");
 
             result.Should().BeEmpty();
         }
@@ -59,71 +61,69 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenAMessageBrokerWhenFollowIsExecutedThenItCallsUserRepositoryTwiceToSearchForUserAndUserToFollow()
         {
-            broker.Follow("Alice", "Bob");
+            this.broker.Follow("Alice", "Bob");
 
-            repository.Received().FindByIdentifier("Alice");
-            repository.Received().FindByIdentifier("Bob");
+            this.repository.Received().FindByIdentifier("Alice");
+            this.repository.Received().FindByIdentifier("Bob");
         }
 
-        [Test]
         public void GivenBobAndAliceAreUsersInTheSystemWhenBobFollowsAliceThenAliceFollowersShouldContainBob()
         {
-            repository.FindByIdentifier("Bob").Returns(bob);
-            repository.FindByIdentifier("Alice").Returns(alice);
+            this.repository.FindByIdentifier("Bob").Returns(this.bob);
+            this.repository.FindByIdentifier("Alice").Returns(this.alice);
 
-            broker.Follow("Alice", "Bob");
+            this.broker.Follow("Alice", "Bob");
 
-            bob.Followers.Should().Contain(alice);
+            this.bob.Followers.Should().Contain(this.alice);
         }
 
         [Test]
         public void GivenAMessageBrokerWhenWallIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
-            broker.Wall("Bob");
+            this.broker.Wall("Bob");
 
-            repository.Received().FindByIdentifier("Bob");
+            this.repository.Received().FindByIdentifier("Bob");
         }
 
         [Test]
         public void GivenAMessageBrokerWhenWallIsExecutedThenReturnsTheUserPostsAndThePostsOfItsFollowwers()
         {
-            repository.FindByIdentifier("Bob").Returns(bob);
+            this.repository.FindByIdentifier("Bob").Returns(this.bob);
 
-            broker.Wall("Bob");
+            this.broker.Wall("Bob");
 
-            var tmp = userWall.Received().Wall;
+            var tmp = this.userWall.Received().Wall;
         }
 
         [Test]
         public void GivenAMessageBrokerWhenPostIsExecutedThenItCallsUserRepositoryToSearchForUser()
         {
-            repository.FindByIdentifier("Bob").Returns(bob);
+            this.repository.FindByIdentifier("Bob").Returns(this.bob);
 
-            broker.Post("Bob", "message");
+            this.broker.Post("Bob", "message");
 
-            repository.Received().FindByIdentifier("Bob");
+            this.repository.Received().FindByIdentifier("Bob");
         }
 
         [Test]
         public void GivenAMessageBrokerAndThatTheUserPostingIsNotInTheSystemWhenPostIsExecutedThenItCallsRepositoryCreate()
         {
-            repository.FindByIdentifier("Bob").Returns(new NullUser());
-            repository.Create("Bob").Returns(new User("Bob", userWall));
+            this.repository.FindByIdentifier("Bob").Returns(new NullUser());
+            this.repository.Create("Bob").Returns(new User("Bob", this.userWall));
 
-            broker.Post("Bob", "message");
+            this.broker.Post("Bob", "message");
 
-            repository.Received().Create("Bob");
+            this.repository.Received().Create("Bob");
         }
 
         [Test]
         public void GivenAMessageBrokerWhenPostIsExecutedThenCallsPostOnUserWall()
         {
-            repository.FindByIdentifier("Bob").Returns(bob);
+            this.repository.FindByIdentifier("Bob").Returns(this.bob);
 
-            broker.Post("Bob", "message");
+            this.broker.Post("Bob", "message");
 
-            userWall.Received().Post(bob, "message");
+            this.userWall.Received().Post(this.bob, "message");
         }
     }
 }
-

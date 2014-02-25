@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ConsoleTwitter
+namespace ConsoleTwitter.Wrappers
 {
+    using System;
+
     public static class SystemTime
     {
         private static Func<DateTime> now = () => DateTime.Now;
@@ -14,5 +12,4 @@ namespace ConsoleTwitter
             set { now = value; }
         }
     }
-    
 }

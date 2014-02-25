@@ -1,9 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace ConsoleTwitter
+namespace ConsoleTwitter.Users
 {
+    using System.Collections.Generic;
+
     public interface IUser : IWall
     {
         string UserHandle { get; }
@@ -12,5 +10,4 @@ namespace ConsoleTwitter
 
         void AddFollower(IUser user);
     }
-    
 }

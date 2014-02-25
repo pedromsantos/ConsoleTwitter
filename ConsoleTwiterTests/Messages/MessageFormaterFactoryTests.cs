@@ -1,12 +1,15 @@
-﻿using System;
-using NUnit.Framework;
-
-using ConsoleTwitter;
-using FluentAssertions;
-using NSubstitute;
-
-namespace ConsoleTwiterTests
+﻿namespace ConsoleTwiterTests.Messages
 {
+    using ConsoleTwitter;
+    using ConsoleTwitter.Commands;
+    using ConsoleTwitter.Messages;
+
+    using FluentAssertions;
+
+    using NSubstitute;
+
+    using NUnit.Framework;
+
     [TestFixture]
     public class MessageFormaterFactoryTests
     { 
@@ -15,13 +18,13 @@ namespace ConsoleTwiterTests
         [SetUp]
         public void SetUp()
         {
-            brokerMock = Substitute.For<IMessageBroker>();
+            this.brokerMock = Substitute.For<IMessageBroker>();
         }
 
         [Test]
         public void GivenAReadCommandWhenCreateFormaterForCommandIsInvokedOnFactoryThenItReturnsAMessageFromater()
         {
-            var command = new ReadCommand(brokerMock, "Bob");
+            var command = new ReadCommand(this.brokerMock, "Bob");
             var factory = new MessageFormaterFactory();
 
             var formater = factory.CreateFormaterForCommand(command);
@@ -32,7 +35,7 @@ namespace ConsoleTwiterTests
         [Test]
         public void GivenAWallCommandWhenCreateFormaterForCommandIsInvokedOnFactoryThenItReturnsAWallMessageFromater()
         {
-            var command = new WallCommand(brokerMock, "Bob");
+            var command = new WallCommand(this.brokerMock, "Bob");
             var factory = new MessageFormaterFactory();
 
             var formater = factory.CreateFormaterForCommand(command);
@@ -41,4 +44,3 @@ namespace ConsoleTwiterTests
         }
     }
 }
-

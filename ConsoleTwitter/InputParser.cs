@@ -2,6 +2,8 @@
 {
     using System.Linq;
 
+    using ConsoleTwitter.Commands;
+
     public class InputParser : IInputParser
     {
         private const int UserTokenPosition = 1;
@@ -9,7 +11,7 @@
         
         private const char SeparatorToken = ' ';
 
-        private ICommandFactory commandFactory;
+        private readonly ICommandFactory commandFactory;
 
         public InputParser(ICommandFactory commandFactory)
         {
