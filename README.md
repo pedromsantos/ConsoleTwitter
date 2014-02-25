@@ -17,10 +17,10 @@ Navigate to the solution folder. Download Nuget from http://nuget.codeplex.com/d
 
 ### Application instructions
 
-| Action    | Command                                 | Example                              |
-| --------- |:---------------------------------------:| ------------------------------------:|
-| Post      | \*<user name> -> <message>\*            | Alice -> I love the weather today    |
-| Read      | \*<user name>\*                         | Alice                                |
-| Folow     | \*<user name> follows <another user>\*  | Charlie follows Alice                |
-| Wall      | \*<user name> wall\*                    | Charlie wall                         |
+| Action    | Command                               | Example                              |
+| --------- |:--------------------------------------:| ------------------------------------:|
+| Post      | \<user name\> -> \<message\>           | Alice -> I love the weather today    |
+| Read      | \<user name\>                          | Alice                                |
+| Folow     | \<user name\> follows \<another user\> | Charlie follows Alice                |
+| Wall      | \<user name\> wall                     | Charlie wall                         |
 
