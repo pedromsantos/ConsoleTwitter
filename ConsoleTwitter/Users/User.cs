@@ -9,12 +9,14 @@
     {
         private readonly IWall wall;
         private readonly ICollection<IUser> internalFollowers;
+        private readonly ICollection<IUser> internalFollowees;
 
         public User(string userHandle, IWall wall)
         {
             this.wall = wall;
             this.UserHandle = userHandle;
             this.internalFollowers = new List<IUser>();
+            this.internalFollowees = new List<IUser>();
         }
 
         public string UserHandle { get; private set; }
@@ -27,6 +29,14 @@
             }
         }
 
+        public IEnumerable<IUser> Followees
+        {
+            get
+            {
+                return this.internalFollowees.Skip(0);
+            }
+        }
+
         public IEnumerable<Message> Wall
         {
             get
@@ -35,9 +45,15 @@
             }
         }
 
+        public void AddFollowee(IUser user)
+        {
+            this.internalFollowees.Add(user);
+        }
+
         public void AddFollower(IUser user)
         {
             this.internalFollowers.Add(user);
+            user.AddFollowee(this);
         }
 
         public void Post(string message)
@@ -48,8 +64,6 @@
         public void Post(IUser user, string message)
         {
             this.wall.Post(user, message);
-
-            this.Followers.ToList().ForEach(u => u.Post(user, message));
         }
 
         public IEnumerable<Message> Posts(IUser user = null)

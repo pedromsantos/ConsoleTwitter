@@ -48,14 +48,11 @@
         }
 
         [Test]
-        public void GivenAUserWhenPostsIsCalledThenItCallsPostOnItsFollowers()
+        public void GivenAUserWhenAddFollowerIsCalledThenItAddsTheUserAsAFolloweeOfFollower()
         {
             this.bob.AddFollower(this.alice);
 
-            this.alice.Post("message");
-
-            this.userWall.Received().Post(this.alice, "message");
-            this.userWall.Received().Post(this.alice, "message");
+            this.alice.Followees.Should().Contain(this.bob);
         }
     }
 }

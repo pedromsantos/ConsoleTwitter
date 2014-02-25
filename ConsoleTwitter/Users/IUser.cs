@@ -8,6 +8,10 @@ namespace ConsoleTwitter.Users
 
         IEnumerable<IUser> Followers { get; }
 
+        IEnumerable<IUser> Followees { get; }
+
         void AddFollower(IUser user);
+
+        void AddFollowee(IUser user);
     }
 }

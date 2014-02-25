@@ -31,6 +31,14 @@
             }
         }
 
+        public IEnumerable<IUser> Followees
+        {
+            get
+            {
+                return new Collection<IUser>();
+            }
+        }
+
         public void Post(string message)
         {
         }
@@ -45,6 +53,10 @@
         }
 
         public void AddFollower(IUser user)
+        {
+        }
+
+        public void AddFollowee(IUser user)
         {
         }
 
