@@ -4,6 +4,6 @@ namespace ConsoleTwitter.Commands
 
     public interface ICommandFactory
     {
-        ICommand CreateCommand(string userName, string action, IEnumerable<string> arguments);
+        ICommand CreateCommand(string userName, string action = null, IEnumerable<string> arguments = null);
     }
 }

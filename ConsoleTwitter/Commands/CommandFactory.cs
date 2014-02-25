@@ -16,7 +16,7 @@ namespace ConsoleTwitter.Commands
             this.receiver = receiver;
         }
 
-        public virtual ICommand CreateCommand(string userName, string action, IEnumerable<string> arguments)
+        public virtual ICommand CreateCommand(string userName, string action = null, IEnumerable<string> arguments = null)
         {
             if (string.IsNullOrEmpty(userName))
             {

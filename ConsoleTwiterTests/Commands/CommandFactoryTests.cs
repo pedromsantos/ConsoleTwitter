@@ -12,6 +12,14 @@
     [TestFixture]
     public class CommandFactoryTests
     {
+        private const string BobUserHandle = "Bob";
+        private const string AliceUserHandle = "Alice";
+        private const string PostMessageText = "message";
+
+        private const string PostCommandToken = "->";
+        private const string WallCommandToken = "wall";
+        private const string FollowsCommandToken = "follows";
+
         private IMessageBroker receiver;
         private CommandFactory factory;
 
@@ -26,7 +34,7 @@
         [Test]
         public void GivenAUsernameWhenCreateCommandIsCalledThenItCreatesACommandRepresentigTheUserAction()
         {
-            var command = this.factory.CreateCommand("user", null, null);
+            var command = this.factory.CreateCommand(BobUserHandle);
 
             command.Should().BeAssignableTo<ICommand>();
         }
@@ -34,7 +42,7 @@
         [Test]
         public void GivenInvalidArgumentsWhenCreateCommandIsCalledThenItCreatesANullCommandRepresentigTheUserAction()
         {
-            var command = this.factory.CreateCommand(string.Empty, null, null);
+            var command = this.factory.CreateCommand(string.Empty);
 
             command.Should().BeAssignableTo<NullCommand>();
         }
@@ -42,9 +50,9 @@
         [Test]
         public void GivenAUsernameWhenCreateCommandIsCalledThenItCreatesACommandAssigningTheUsernameToTheCommand()
         {
-            const string UserName = "user";
+            const string UserName = BobUserHandle;
 
-            var command = this.factory.CreateCommand(UserName, null, null);
+            var command = this.factory.CreateCommand(UserName);
 
             command.User.Should().Be(UserName);
         }
@@ -52,7 +60,7 @@
         [Test]
         public void GivenAUsernameAndAMessageWhenCreateCommandIsCalledThenItCreatesAPostCommandForTheAction()
         {
-            var command = this.factory.CreateCommand("user", "->", new[] { "message" });
+            var command = this.factory.CreateCommand(BobUserHandle, PostCommandToken, new[] { PostMessageText });
 
             command.Should().BeAssignableTo<PostCommand>();
         }
@@ -60,15 +68,15 @@
         [Test]
         public void GivenAUsernameAPostActionAndAMessageWhenCreateCommandIsCalledThenItCreatesAPostCommandAssigningTheMessageToTheCommand()
         {
-            var command = (PostCommand)this.factory.CreateCommand("user", "->", new[] { "message" });
+            var command = (PostCommand)this.factory.CreateCommand(BobUserHandle, PostCommandToken, new[] { PostMessageText });
 
-            command.Message.Should().Be("message");
+            command.Message.Should().Be(PostMessageText);
         }
 
         [Test]
         public void GivenAUsernameWhenCreateCommandIsCalledThenItCreatesAReadCommandForTheAction()
         {
-            var command = this.factory.CreateCommand("user", null, null);
+            var command = this.factory.CreateCommand(BobUserHandle);
 
             command.Should().BeAssignableTo<ReadCommand>();
         }
@@ -76,7 +84,7 @@
         [Test]
         public void GivenAUsernameAFollowActionAndAUserToFollowWhenCreateCommandIsCalledThenItCreatesAFollowCommandForTheAction()
         {
-            var command = (FollowCommand)this.factory.CreateCommand("user", "follows", new[] { "user" });
+            var command = (FollowCommand)this.factory.CreateCommand(BobUserHandle, FollowsCommandToken, new[] { AliceUserHandle });
 
             command.Should().BeAssignableTo<FollowCommand>();
         }
@@ -84,15 +92,15 @@
         [Test]
         public void GivenAUsernameAFollowActionAndAUserToFollowWhenCreateCommandIsCalledThenItCreatesFollowCommandAssigningTheserToFollowToTheCommand()
         {
-            var command = (FollowCommand)this.factory.CreateCommand("Alice", "follows", new[] { "Bob" });
+            var command = (FollowCommand)this.factory.CreateCommand(AliceUserHandle, FollowsCommandToken, new[] { BobUserHandle });
 
-            command.UserToFollow.Should().Be("Bob");
+            command.UserToFollow.Should().Be(BobUserHandle);
         }
 
         [Test]
         public void GivenAUsernameAndAWallActionWhenCreateCommandIsCalledThenItCreatesAWallCommandForTheAction()
         {
-            var command = (WallCommand)this.factory.CreateCommand("User", "wall", null);
+            var command = (WallCommand)this.factory.CreateCommand(AliceUserHandle, WallCommandToken);
 
             command.Should().BeAssignableTo<WallCommand>();
         }
