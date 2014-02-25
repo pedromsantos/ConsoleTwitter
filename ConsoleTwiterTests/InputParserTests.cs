@@ -13,6 +13,13 @@
     [TestFixture]
     public class InputParserTests
     {
+        private const string BobUserHandle = "Bob";
+        private const string AliceUserHandle = "Alice";
+        private const string PostMessageText = "message";
+        private const string PostCommandToken = "->";
+        private const string WallCommandToken = "wall";
+        private const string FollowsCommandToken = "follows";
+
         private ICommandFactory factory;
         private InputParser parser;
 
@@ -26,9 +33,9 @@
         [Test]
         public void GivenAUserInputWhenParseIsCalledThenItCallsCreateCommand()
         {
-            this.parser.Parse("user");
+            this.parser.Parse(BobUserHandle);
         
-            this.factory.Received().CreateCommand("user", null, Arg.Is<IEnumerable<string>>(users => !users.Any()));
+            this.factory.Received().CreateCommand(BobUserHandle, null, Arg.Is<IEnumerable<string>>(users => !users.Any()));
         }
 
         [Test]
@@ -42,41 +49,41 @@
         [Test]
         public void GivenAUserInputWhenParseIsCalledThenItCallsCreateCommandPassingTheParsedUsername()
         {
-            const string UserName = "user";
+            const string UserName = BobUserHandle;
         
             this.parser.Parse(UserName);
         
-            this.factory.Received().CreateCommand("user", null, Arg.Is<IEnumerable<string>>(users => !users.Any()));
+            this.factory.Received().CreateCommand(BobUserHandle, null, Arg.Is<IEnumerable<string>>(users => !users.Any()));
         }
 
         [Test]
         public void GivenAPostUserInputWhenParseIsCalledThenItCallsCreateCommandPassingTheParsedUsernameThePostActionAndTheMessage()
         {
-            const string Input = "user -> message";
+            var input = string.Format("{0} {1} {2}", BobUserHandle, PostCommandToken, PostMessageText);
         
-            this.parser.Parse(Input);
+            this.parser.Parse(input);
         
-            this.factory.Received().CreateCommand("user", "->", Arg.Is<IEnumerable<string>>(messages => messages.All(message => message == "message")));
+            this.factory.Received().CreateCommand(BobUserHandle, "->", Arg.Is<IEnumerable<string>>(messages => messages.All(message => message == PostMessageText)));
         }
 
         [Test]
         public void GivenAFollowsUserInputWhenParseIsCalledThenItCallsCreateCommandPassingTheParsedUsernameTheFollowActionAndTheUserToFollow()
         {
-            const string Input = "Alice follows Bob";
+            var input = string.Format("{0} {1} {2}", AliceUserHandle, FollowsCommandToken, BobUserHandle);
         
-            this.parser.Parse(Input);
+            this.parser.Parse(input);
         
-            this.factory.Received().CreateCommand("Alice", "follows", Arg.Is<IEnumerable<string>>(users => users.All(user => user == "Bob")));
+            this.factory.Received().CreateCommand(AliceUserHandle, FollowsCommandToken, Arg.Is<IEnumerable<string>>(users => users.All(user => user == BobUserHandle)));
         }
 
         [Test]
         public void GivenAWallUserInputWhenParseIsCalledThenItCallsCreateCommandPassingTheParsedUsernameAndTheWallAction()
         {
-            const string Input = "user wall";
+            var input = string.Format("{0} {1}", BobUserHandle, WallCommandToken);
         
-            this.parser.Parse(Input);
+            this.parser.Parse(input);
         
-            this.factory.Received().CreateCommand("user", "wall", Arg.Is<IEnumerable<string>>(users => !users.Any()));
+            this.factory.Received().CreateCommand(BobUserHandle, WallCommandToken, Arg.Is<IEnumerable<string>>(users => !users.Any()));
         }
     }
 }

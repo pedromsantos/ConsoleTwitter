@@ -2,7 +2,6 @@
 {
     using System;
 
-    using ConsoleTwitter;
     using ConsoleTwitter.Messages;
     using ConsoleTwitter.Users;
     using ConsoleTwitter.Wrappers;
@@ -14,6 +13,9 @@
     [TestFixture]
     public class WallMessageFormaterTests
     {
+        private const string BobUserHandle = "Bob";
+        private const string PostMessageText = "message";
+
         private IMessageFormater formater;
         private Message message;
 
@@ -23,8 +25,8 @@
             SystemTime.Now = () => new DateTime(2000, 1, 1);
 
             var userWall = new UserWall();
-            var bob = new User("Bob", userWall);
-            this.message = new Message(bob, "Bob's message");
+            var bob = new User(BobUserHandle, userWall);
+            this.message = new Message(bob, PostMessageText);
             this.formater = new WallMessageFormater(new MessageFormater(new ElapsedTimeMessageFormater()));
         }
 
@@ -33,7 +35,7 @@
         {
             var formatedMessage = this.formater.Format(this.message);
 
-            formatedMessage.Should().Be("Bob - Bob's message (0 seconds ago)");
+            formatedMessage.Should().Be(string.Format("{0} - {1} (0 seconds ago)", BobUserHandle, PostMessageText));
         }
     }
 }

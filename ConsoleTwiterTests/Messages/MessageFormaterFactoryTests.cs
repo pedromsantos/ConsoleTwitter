@@ -12,7 +12,9 @@
 
     [TestFixture]
     public class MessageFormaterFactoryTests
-    { 
+    {
+        private const string BobUserHandle = "Bob";
+
         private IMessageBroker brokerMock;
 
         [SetUp]
@@ -24,7 +26,7 @@
         [Test]
         public void GivenAReadCommandWhenCreateFormaterForCommandIsInvokedOnFactoryThenItReturnsAMessageFromater()
         {
-            var command = new ReadCommand(this.brokerMock, "Bob");
+            var command = new ReadCommand(this.brokerMock, BobUserHandle);
             var factory = new MessageFormaterFactory();
 
             var formater = factory.CreateFormaterForCommand(command);
@@ -35,7 +37,7 @@
         [Test]
         public void GivenAWallCommandWhenCreateFormaterForCommandIsInvokedOnFactoryThenItReturnsAWallMessageFromater()
         {
-            var command = new WallCommand(this.brokerMock, "Bob");
+            var command = new WallCommand(this.brokerMock, BobUserHandle);
             var factory = new MessageFormaterFactory();
 
             var formater = factory.CreateFormaterForCommand(command);

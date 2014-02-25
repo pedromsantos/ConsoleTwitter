@@ -12,6 +12,8 @@
     [TestFixture]
     public class UserRepositoryTests
     {
+        private const string BobUserHandle = "Bob";
+
         private IRepository<IUser> repository;
         private IUser bob;
 
@@ -19,27 +21,27 @@
         public void Setup()
         {
             this.repository = new UserRepository();
-            this.bob = this.repository.Create("Bob");
+            this.bob = this.repository.Create(BobUserHandle);
         }
 
         [Test]
         public void GivenAnEmptyRepositoryWhenCreateIsCalledThenItCreatesANewUser()
         {
-            this.bob.UserHandle.Should().Be("Bob");
+            this.bob.UserHandle.Should().Be(BobUserHandle);
         }
 
         [Test]
         public void GivenARepositoryWithAliceAndBobWhenFindByIdentifierIsCalledUsingBobsHandleThenBobsUserIsReturned()
         {
-            var user = this.repository.FindByIdentifier("Bob");
+            var user = this.repository.FindByIdentifier(BobUserHandle);
 
-            user.UserHandle.Should().Be("Bob");
+            user.UserHandle.Should().Be(BobUserHandle);
         }
 
         [Test]
         public void GivenARepositoryWithBobAsUserWhenCreateIsCalledForBobThenItDoesNotCreateANewUser()
         {
-            this.repository.Create("Bob");
+            this.repository.Create(BobUserHandle);
 
             ((UserRepository)this.repository).Users.Count().Should().Be(1);
         }
