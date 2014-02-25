@@ -48,6 +48,14 @@
         }
 
         [Test]
+        public void GivenAUserWhenAddFolloweeIsCalledThenItAddsTheFolloweeToItsListOfFollowees()
+        {
+            this.bob.AddFollowee(this.alice);
+
+            this.bob.Followees.Should().Contain(this.alice);
+        }
+
+        [Test]
         public void GivenAUserWhenAddFollowerIsCalledThenItAddsTheUserAsAFolloweeOfFollower()
         {
             this.bob.AddFollower(this.alice);
