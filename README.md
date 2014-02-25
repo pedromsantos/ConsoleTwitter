@@ -1,6 +1,8 @@
 ConsoleTwitter
 ==============
 
+This app tries to emulate some of Twitter functionality in the command line. Its's not a Twitter client.
+
 ## HOW TO:
 
 ### Build and run
