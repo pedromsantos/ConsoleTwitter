@@ -17,29 +17,10 @@ Navigate to the solution folder. Download Nuget from http://nuget.codeplex.com/d
 
 ### Application instructions
 
-Post: <user name> -> <message> 
-Read: <user name> 
-Follow: <user name> follows <another user> 
-Wall: <user name> wall
+| Action    | Command                             | Example                              |
+| --------- |:-----------------------------------:| ------------------------------------:|
+| Post      | <user name> -> <message>            | Alice -> I love the weather today    |
+| Read      | <user name>                         | Alice                                |
+| Folow     | <user name> follows <another user>  | Charlie follows Alice                |
+| Wall      | <user name> wall                    | Charlie wall                         |
 
-### Sample usage
-
-Alice -> I love the weather today
-Bob -> Damn! We lost! 
-Bob -> Good game though.
-Alice
-I love the weather today (5 minutes ago)
-Bob
-Good game though. (1 minute ago)
-Damn! We lost! (2 minutes ago)
-Charlie -> I'm in New York today! Anyone wants to have a coffee? 
-Charlie follows Alice 
-Charlie wall
-Charlie - I'm in New York today! Anyone wants to have a coffee? (2 seconds ago) 
-Alice - I love the weather today (5 minutes ago)
-Charlie follows Bob 
-Charlie wall
-Charlie - I'm in New York today! Anyone wants to have a coffee? (15 seconds ago) 
-Bob - Good game though. (1 minutes ago) 
-Bob - Damn! We lost! (2 minute ago) 
-Alice - I love the weather today (5 minutes ago)
