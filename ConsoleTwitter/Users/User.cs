@@ -41,7 +41,14 @@
         {
             get
             {
-                return this.wall.Wall;
+                var followeesPosts = new List<Message>();
+
+                foreach (var followee in this.Followees)
+                {
+                    followeesPosts.AddRange(followee.Posts());
+                }
+
+                return this.wall.Wall.Concat(followeesPosts).OrderBy(m => m.Timestamp);
             }
         }
 
