@@ -48,7 +48,7 @@
                     followeesPosts.AddRange(followee.Posts());
                 }
 
-                return this.wall.Wall.Concat(followeesPosts).OrderByDescending(m => m.Timestamp);
+                return this.wall.Wall.Concat(followeesPosts).OrderBy(m => m.Timestamp);
             }
         }
 
